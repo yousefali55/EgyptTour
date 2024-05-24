@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:egypttour/theming/colors_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,7 +15,7 @@ class DontHaveAccount extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Don\'t have account?',
+            'Don\'t have account?'.tr(),
             style: GoogleFonts.inter(
               
               color: ColorsManager.navyBlue,
@@ -29,7 +30,7 @@ class DontHaveAccount extends StatelessWidget {
               visualDensity: VisualDensity.compact,
             ),
             child: Text(
-              'Sign Up here',
+              'Sign Up here'.tr(),
               style: GoogleFonts.inter(
                 color: ColorsManager.primaryColor,
                 fontSize: 14,

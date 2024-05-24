@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:egypttour/spacing/spacing.dart';
 import 'package:egypttour/theming/colors_manager.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,7 @@ class TextInSignInUp extends StatelessWidget {
           ),
         ),
         heightSpace(12),
-        Text('Enter your details below',
+        Text('Enter your details below'.tr(),
         style: GoogleFonts.sora(
           color: ColorsManager.darkGrey,
           fontSize: 14,

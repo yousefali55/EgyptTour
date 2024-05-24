@@ -1,15 +1,19 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:egypttour/changers/theme_changer/cubit/theme_changer_cubit.dart';
+import 'package:egypttour/spacing/spacing.dart';
+import 'package:egypttour/theming/colors_manager.dart';
 import 'package:egypttour/views/favourites_screen/favourites_screen.dart';
 import 'package:egypttour/views/floating_action/city_text_and_endpoint_model.dart';
 import 'package:egypttour/views/home_screen/home_screen.dart';
-import 'package:egypttour/views/profile_screen/profile_screen.dart';
+import 'package:egypttour/views/profile_related_screens/profile/data/cubit/get_user_information_cubit.dart';
+import 'package:egypttour/views/profile_related_screens/profile/profile_screen.dart';
 import 'package:egypttour/views/search_screen/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class FloatingActionButtonScreen extends StatefulWidget {
-  const FloatingActionButtonScreen({Key? key}) : super(key: key);
+  const FloatingActionButtonScreen({super.key});
 
   @override
   State<FloatingActionButtonScreen> createState() =>
@@ -30,33 +34,39 @@ class _FloatingActionButtonScreenState
   List<CityModel> cities = [
     CityModel(
       cityText: 'Port Said'.tr(),
-      endpoint: '6633d4c8823b68249b2ac122',
-      arEndPoint: '',
+      endpointEn: '6633d4c8823b68249b2ac122',
+      endpointAr: '',
+      weatherEndPoint: 'Port said',
     ),
     CityModel(
       cityText: 'Cairo'.tr(),
-      endpoint: '6633d356823b68249b2abf5e',
-      arEndPoint: '664d09b496363511224c13e2',
+      endpointEn: '6633d356823b68249b2abf5e',
+      endpointAr: '664d09b496363511224c13e2',
+      weatherEndPoint: 'Cairo',
     ),
     CityModel(
       cityText: 'Fayoum'.tr(),
-      endpoint: '6633d648823b68249b2ac1ee',
-      arEndPoint: '664d0cd496363511224c1504',
+      endpointEn: '6633d648823b68249b2ac1ee',
+      endpointAr: '664d0cd496363511224c1504',
+      weatherEndPoint: 'Fayoum',
     ),
     CityModel(
       cityText: 'Aswan'.tr(),
-      endpoint: '',
-      arEndPoint: '664a2e45d2481d0c0c8c9d90',
+      endpointEn: '',
+      endpointAr: '664a2e45d2481d0c0c8c9d90',
+      weatherEndPoint: 'Aswan',
     ),
     CityModel(
       cityText: 'Alexandria'.tr(),
-      endpoint: '6633d2a7823b68249b2abe5c',
-      arEndPoint: '664c6857191fb4437fad6f53',
+      endpointEn: '6633d2a7823b68249b2abe5c',
+      endpointAr: '664c6857191fb4437fad6f53',
+      weatherEndPoint: 'Alex',
     ),
     CityModel(
       cityText: 'Luxor'.tr(),
-      endpoint: '6633eb26823b68249b2ac2c8',
-      arEndPoint: '664c67d9191fb4437fad6e81',
+      endpointEn: '6633eb26823b68249b2ac2c8',
+      endpointAr: '664c67d9191fb4437fad6e81',
+      weatherEndPoint: 'Luxor',
     ),
   ];
 
@@ -71,7 +81,10 @@ class _FloatingActionButtonScreenState
         cities: cities,
       ),
       const FavouritesScreen(),
-      const ProfileScreen(),
+      BlocProvider(
+        create: (context) => GetUserInformationCubit()..fetchUserInfo(),
+        child: ProfileScreen(),
+      ),
     ];
   }
 
@@ -85,79 +98,142 @@ class _FloatingActionButtonScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
-        child: Column(
-          children: [
-            BlocBuilder<ThemeChangerCubit, ThemeChangerState>(
-              builder: (context, state) {
-                return SwitchListTile(
-                  title: const Text('Dark Mode'),
-                  value: state is ThemeChangerChanged
-                      ? state.isDarkModee ?? false
-                      : false,
-                  onChanged: (newValue) {
-                    context.read<ThemeChangerCubit>().toggleTheme(newValue);
-                  },
+        child: BlocProvider(
+          create: (context) => GetUserInformationCubit()..fetchUserInfo(),
+          child: BlocBuilder<GetUserInformationCubit, GetUserInformationState>(
+            builder: (context, state) {
+              if (state is GetUserInformationLoading) {
+                return const Expanded(
+                  child: SizedBox(
+                    width: 24, // Adjust the width and height as needed
+                    height: 24,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2, // Adjust the strokeWidth as needed
+                      color: ColorsManager.primaryColor,
+                    ),
+                  ),
                 );
-              },
-            ),
-            // BlocBuilder<LanguageChangerCubit, LanguageChangerState>(
-            //   builder: (context, state) {
-            //     return SwitchListTile(
-            //       title: Text('Arabic'),
-            //       value: context.locale.languageCode == 'ar',
-            //       onChanged: (newValue) {
-            //         final newLocale = newValue
-            //                   ? const Locale('ar', 'AR')
-            //                 : const Locale('en', 'US');
-            //         context
-            //             .read<LanguageChangerCubit>()
-            //             .switchLanguage(newLocale); // Emit new state from Cubit
-            //         Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const FloatingActionButtonScreen()));
-            //       },
-            //     );
-            //   },
-            // ),
-          ],
+              }
+              if (state is GetUserInformationSuccess) {
+                final userInfo = state.userInfo;
+                return Column(
+                  children: [
+                    SizedBox(
+                      height: 180,
+                      width: 180,
+                      child: CircleAvatar(
+                        // ignore: unnecessary_type_check
+                        backgroundImage: state is GetUserInformationSuccess
+                            ? NetworkImage(userInfo.avatar[0])
+                            : const AssetImage('assets/images/person.png'),
+                        radius: 364,
+                      ),
+                    ),
+                    Text(
+                      overflow: TextOverflow.ellipsis,
+                      userInfo.fullname,
+                      style: GoogleFonts.montserrat(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: ColorsManager.brown,
+                      ),
+                    ),
+                    heightSpace(10),
+                    Text(
+                      overflow: TextOverflow.ellipsis,
+                      userInfo.email,
+                      style: GoogleFonts.montserrat(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w400,
+                        color: ColorsManager.brown,
+                      ),
+                    ),
+                    const Divider(
+                      thickness: 1,
+                      color: ColorsManager.offWhite,
+                    ),
+                    BlocBuilder<ThemeChangerCubit, ThemeChangerState>(
+                      builder: (context, state) {
+                        return SwitchListTile(
+                          title: const Text('Dark Mode'),
+                          value: state is ThemeChangerChanged
+                              ? state.isDarkModee ?? false
+                              : false,
+                          onChanged: (newValue) {
+                            context
+                                .read<ThemeChangerCubit>()
+                                .toggleTheme(newValue);
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                );
+              } else {
+                return Container();
+              }
+            },
+          ),
         ),
       ),
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => SearchScreen(
-                    cities: cities,
-                  ),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: BlocBuilder<ThemeChangerCubit, ThemeChangerState>(
+          builder: (context, state) {
+            return AppBar(
+              backgroundColor: state is ThemeChangerChanged && state.isDarkModee
+                  ? Colors.black
+                  : const Color.fromARGB(255, 255, 249, 235),
+              actions: [
+                Image.asset('assets/images/tourist.png'),
+                IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => SearchScreen(
+                          cities: cities,
+                        ),
+                      ),
+                    );
+                  },
+                  icon: const Icon(Icons.search),
                 ),
-              );
-            },
-            icon: const Icon(Icons.search),
-          ),
-        ],
+              ],
+            );
+          },
+        ),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.home),
-            label: 'Home'.tr(),
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.favorite),
-            label: 'Favourites'.tr(),
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.person),
-            label: 'Profile'.tr(),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: const Color.fromARGB(255, 255, 249, 235), // Change with your desired color
-        onTap: _onItemTapped,
+      bottomNavigationBar: BlocBuilder<ThemeChangerCubit, ThemeChangerState>(
+        builder: (context, state) {
+          return BottomNavigationBar(
+            backgroundColor: state is ThemeChangerChanged && state.isDarkModee
+                ? Colors.black
+                : const Color.fromARGB(255, 255, 249, 235),
+            items: <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.home),
+                label: 'Home'.tr(),
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.favorite),
+                label: 'Favourites'.tr(),
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.person),
+                label: 'Profile'.tr(),
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: state is ThemeChangerChanged && state.isDarkModee
+                ? Colors.white
+                : Colors.brown,
+            onTap: _onItemTapped,
+          );
+        },
       ),
     );
   }

@@ -12,4 +12,5 @@ class ColorsManager {
   static const Color mainGreen = Color(0xFF0A9C48);
   static const Color offWhite = Color(0xFF242424);
   static const Color brown = Color(0xFFC39126);
+  static const Color primaryKey2 = Color.fromARGB(255, 255, 249, 235);
 }

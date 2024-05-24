@@ -1,0 +1,130 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:egypttour/routing/routes.dart';
+import 'package:egypttour/spacing/spacing.dart';
+import 'package:egypttour/theming/colors_manager.dart';
+import 'package:egypttour/views/profile_related_screens/about/about.dart';
+import 'package:egypttour/views/profile_related_screens/personal_register/personal_register.dart';
+import 'package:egypttour/views/profile_related_screens/profile/data/cubit/get_user_information_cubit.dart';
+import 'package:egypttour/views/profile_related_screens/profile/widgets/row_with_icon_and_text_category.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+class ProfileScreen extends StatelessWidget {
+  ProfileScreen({super.key});
+
+  final List<String> svgs = [
+    'assets/svgs/personal.svg',
+    'assets/svgs/security.svg',
+    'assets/svgs/favorites.svg',
+    'assets/svgs/rate_us.svg',
+    'assets/svgs/help.svg',
+    'assets/svgs/about_us.svg',
+    'assets/svgs/logout.svg'
+  ];
+  final List<String> categoryName = [
+    'General Inforamtion'.tr(),
+    'Security'.tr(),
+    'Favourites'.tr(),
+    'Rate Us'.tr(),
+    'Help'.tr(),
+    'About Us'.tr(),
+    'Logout'.tr(),
+  ];
+  final List<String> screensName = [
+    'General Inforamtion',
+    Routes.securityScreen,
+    'Favourites',
+    'Rate Us',
+    Routes.helpView,
+    Routes.aboutView,
+    'Logout',
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
+          child: BlocBuilder<GetUserInformationCubit, GetUserInformationState>(
+            builder: (context, state) {
+              if (state is GetUserInformationLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(
+                    color: ColorsManager.primaryColor,
+                  ),
+                );
+              } else if (state is GetUserInformationSuccess) {
+                final userInfo = state.userInfo;
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+
+                    SizedBox(
+                      height: 137,
+                      width: 137,
+                      child: CircleAvatar(
+                        backgroundImage: state is GetUserInformationSuccess
+                            ? NetworkImage(userInfo.avatar[0])
+                            : AssetImage('assets/images/person.png'),
+                        radius: 364,
+                      ),
+                    ),
+                    heightSpace(20),
+                    Text(
+                      userInfo.fullname,
+                      style: GoogleFonts.montserrat(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                        color: ColorsManager.brown,
+                      ),
+                    ),
+                    heightSpace(10),
+                    Text(
+                      userInfo.email,
+                      style: GoogleFonts.montserrat(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w400,
+                        color: ColorsManager.brown,
+                      ),
+                    ),
+                    const Divider(
+                      thickness: 1,
+                      color: ColorsManager.offWhite,
+                    ),
+                    heightSpace(15),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: svgs.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return GestureDetector(
+                            onTap: () {
+                              if (index == screensName.length - 1) {
+                                // Handle logout separately
+                                // You can add logout logic here
+                              } else if (screensName[index].isNotEmpty) {
+                                Navigator.pushNamed(
+                                    context, screensName[index]);
+                              }
+                            },
+                            child: RowWithIconAndCategoryText(
+                                svg: svgs[index],
+                                categoryName: categoryName[index]),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              } else {
+                return Container();
+              }
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}

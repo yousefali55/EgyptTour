@@ -1,7 +1,13 @@
-class CityModel{
+class CityModel {
   final String cityText;
-  final String endpoint;
-  final String arEndPoint;
+  final String endpointEn;
+  final String endpointAr;
+  final String weatherEndPoint;
 
-  CityModel({required this.cityText, required this.endpoint,required this.arEndPoint});
+  CityModel({
+    required this.cityText,
+    required this.weatherEndPoint,
+    required this.endpointEn,
+    required this.endpointAr,
+  });
 }

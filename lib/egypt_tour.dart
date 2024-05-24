@@ -31,7 +31,7 @@ class EgyptTour extends StatelessWidget {
             scaffoldBackgroundColor: Colors.black,
           ),
           themeMode: isDarkModeEnabled ? ThemeMode.dark : ThemeMode.light,
-          initialRoute: Routes.floatingActionButton,
+          initialRoute: Routes.loginScreen,
           onGenerateRoute: appRouter.generateRoute,
         );
       },

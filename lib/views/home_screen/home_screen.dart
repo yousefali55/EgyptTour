@@ -3,15 +3,14 @@ import 'package:egypttour/views/floating_action/city_text_and_endpoint_model.dar
 import 'package:flutter/material.dart';
 import 'package:egypttour/views/home_screen/widgets/city_container.dart';
 import 'package:egypttour/spacing/spacing.dart';
-import 'package:egypttour/theming/colors_manager.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatelessWidget {
   final List<String> imageAssets;
   final List<CityModel> cities;
 
-  const HomeScreen({super.key, 
+  const HomeScreen({
+    super.key,
     required this.imageAssets,
     required this.cities,
   });
@@ -19,65 +18,58 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child:  Scaffold(
-          body: Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 70,
-                    child: Image.asset('assets/images/tourist.png'),
+      child: Scaffold(
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Text(
+                  'Explore Egypt'.tr(),
+                  style: TextStyle(
+                      color: Color(0xffc39126),
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 20, left: 16, bottom: 15),
+                  child: Text(
+                    'What\'s new ?'.tr(),
+                    style: TextStyle(fontSize: 24, color: Color(0xffc39126)),
                   ),
-                  Text(
-                    'Welcome, Browse our journey'.tr(),
-                    style: GoogleFonts.sora(
-                      color: ColorsManager.primaryColor,
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
+                ),
+                Text(
+                  'newss'.tr(),
+                  style: const TextStyle(
+                      fontSize: 19, color: Color.fromARGB(255, 95, 71, 20)),
+                ),
+                SizedBox(
+                  height: 720.h,
+                  child: GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
                     ),
+                    itemCount: imageAssets.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return CityContainer(
+                        imageAsset: imageAssets[index],
+                        cityText: cities[index].cityText,
+                        endpointAr: cities[index].endpointAr,
+                        endpointEn: cities[index].endpointEn,
+                        weatherEndPoint: cities[index].weatherEndPoint,
+                      );
+                    },
                   ),
-                  SizedBox(
-                    height: 550.h,
-                    child: GridView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                      ),
-                      itemCount: imageAssets.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return CityContainer(
-                          imageAsset: imageAssets[index],
-                          cityText: cities[index].cityText,
-                          endPoint: cities[index].endpoint,
-                        );
-                      },
-                    ),
-                  ),
-                  Text(
-                    'news'.tr(),
-                    style: GoogleFonts.sora(
-                      color: ColorsManager.primaryColor,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  heightSpace(20),
-                  Text(
-                    "newss".tr(),
-                    style: const TextStyle(
-                      fontSize: 19,
-                      color: ColorsManager.primaryColor,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+                heightSpace(20),
+              ],
             ),
           ),
         ),
+      ),
     );
   }
 }

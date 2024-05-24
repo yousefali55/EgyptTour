@@ -58,8 +58,8 @@ class RegisterScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const TextInSignInUp(
-                                    textWelcomeOrGetStarted: 'Create account'),
+                                 TextInSignInUp(
+                                    textWelcomeOrGetStarted: 'Create account'.tr()),
                                 SizedBox(
                                   height: 210.h,
                                   width: 190.w,
