@@ -35,7 +35,6 @@ class CityInformationsCubit extends Cubit<CityInformationsState> {
                 'Request failed with status code ${response.statusCode}'));
       }
     } catch (e) {
-      // Catch other exceptions
       emit(CityInformationsFailure(
           errorMessge: 'An unexpected error occurred: ${e.toString()}'));
     }
