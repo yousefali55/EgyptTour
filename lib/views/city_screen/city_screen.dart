@@ -12,7 +12,7 @@ import 'package:egypttour/views/favourites_screen/data/favourites_shared.dart';
 import 'package:egypttour/views/favourites_screen/data/favourites_model.dart';
 
 class CityScreen extends StatefulWidget {
-  const CityScreen({Key? key}) : super(key: key);
+  const CityScreen({super.key});
 
   @override
   State<CityScreen> createState() => _CityScreenState();

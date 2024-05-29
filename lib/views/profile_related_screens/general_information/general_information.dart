@@ -24,7 +24,7 @@ class GeneralInFormation extends StatelessWidget {
   //   'Company',
   //   'Other Website',
   // ];
-  GeneralInFormation({
+  const GeneralInFormation({
     super.key,
   });
 
@@ -72,7 +72,7 @@ class GeneralInFormation extends StatelessWidget {
                                         // ignore: unnecessary_type_check
                                         state is GetUserInformationSuccess
                                             ? NetworkImage(userInfo.avatar[0])
-                                            : AssetImage(
+                                            : const AssetImage(
                                                 'assets/images/person.jpg'),
                                     radius: 364,
                                   ),

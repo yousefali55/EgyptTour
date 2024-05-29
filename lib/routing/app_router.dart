@@ -48,7 +48,7 @@ class AppRouter {
         );
       case Routes.generalInformation:
         return MaterialPageRoute(
-          builder: (_) => GeneralInFormation(),
+          builder: (_) => const GeneralInFormation(),
         );
       default:
         return MaterialPageRoute(

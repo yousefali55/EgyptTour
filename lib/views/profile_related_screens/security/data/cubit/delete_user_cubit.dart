@@ -35,7 +35,7 @@ class DeleteUserCubit extends Cubit<DeleteUserState> {
             errorMessage: 'Failed with status code: ${response.statusCode}'));
         print('Failed with status code: ${response.statusCode}');
       }
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       if (e.response != null && e.response?.statusCode == 401) {
         emit(DeleteUserFailure(
             errorMessage: 'Unauthorized: ${e.response?.statusCode}'));

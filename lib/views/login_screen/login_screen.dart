@@ -9,9 +9,6 @@ import 'package:egypttour/theming/colors_manager.dart';
 import 'package:egypttour/views/floating_action/floating_action_button.dart';
 import 'package:egypttour/views/login_screen/data/cubit/sign_in_email_cubit.dart';
 import 'package:egypttour/views/login_screen/widgets/dont_have_account.dart';
-import 'package:egypttour/views/login_screen/widgets/forget_pawword.dart';
-import 'package:egypttour/views/profile_related_screens/change_password/change_password.dart';
-import 'package:egypttour/views/profile_related_screens/change_password/data/cubit/change_password_cubit.dart';
 import 'package:egypttour/views/profile_related_screens/security/data/cubit/forget_password_cubit.dart';
 import 'package:egypttour/views/register_screen/data/cubit/sign_up_email_cubit.dart';
 import 'package:egypttour/views/register_screen/register_screen.dart';
@@ -21,9 +18,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _LoginScreenState createState() => _LoginScreenState();
 }
 

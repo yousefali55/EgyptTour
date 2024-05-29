@@ -43,7 +43,7 @@ class CityInformationsCubit extends Cubit<CityInformationsState> {
 
   Future<void> getWeather() async {
     final apiWeather =
-        'http://api.weatherapi.com/v1/current.json?key=e21eee9a85994dd5bec184609242205&q=${weatherEndPoint}&aqi=no';
+        'http://api.weatherapi.com/v1/current.json?key=e21eee9a85994dd5bec184609242205&q=$weatherEndPoint&aqi=no';
     try {
       emit(CityWeatherLoading());
       final response = await dio.get(apiWeather);

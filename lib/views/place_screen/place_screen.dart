@@ -14,7 +14,7 @@ class PlaceScreen extends StatelessWidget {
   final List<TimeSlot>? time; // Add null safety for time
   final String placeLocation;
 
-  const PlaceScreen({
+  const PlaceScreen({super.key, 
     required this.placeNameText,
     required this.placeDescription,
     required this.img,
@@ -157,9 +157,9 @@ class PlaceScreen extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            SizedBox(width: 8), // Add space between day and time slot
+            const SizedBox(width: 8), // Add space between day and time slot
             Text(
-              '${timeSlot.timeSlot}',
+              timeSlot.timeSlot,
               style: TextStyle(
                 color: ColorsManager.brown,
                 fontSize: 18.sp,

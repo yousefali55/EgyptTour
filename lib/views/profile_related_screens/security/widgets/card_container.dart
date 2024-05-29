@@ -24,7 +24,7 @@ class CardContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(30),
       ),
       child: Padding(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         child: Column(
           children: [
             Row(

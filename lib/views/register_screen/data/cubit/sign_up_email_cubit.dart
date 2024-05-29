@@ -3,8 +3,6 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:meta/meta.dart';
-
 part 'sign_up_email_state.dart';
 
 class SignUpEmailCubit extends Cubit<SignUpEmailState> {
@@ -59,13 +57,13 @@ class SignUpEmailCubit extends Cubit<SignUpEmailState> {
       if (response.statusCode == 200 || response.statusCode == 201) {
         final data = response.data;
         emit(SignUpEmailSuccess(data: data));
-        print('${data}');
+        print('$data');
       } else {
         final errorData = response.data;
         emit(SignUpEmailFailure(
             errorMessage: errorData['message'] ?? 'Registration failed'));
       }
-    } on DioError catch (dioError) {
+    } on DioException catch (dioError) {
       if (dioError.response != null && dioError.response!.statusCode == 500) {
         final errorMessage = dioError.response!.data['message'] ??
             'Cannot read properties of null (reading \'email\')';

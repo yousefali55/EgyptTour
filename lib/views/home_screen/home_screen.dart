@@ -81,11 +81,12 @@ class SlideShow extends StatefulWidget {
   final List<String> imageAssets;
 
   const SlideShow({
-    Key? key,
+    super.key,
     required this.imageAssets,
-  }) : super(key: key);
+  });
 
   @override
+  // ignore: library_private_types_in_public_api
   _SlideShowState createState() => _SlideShowState();
 }
 
@@ -99,7 +100,7 @@ class _SlideShowState extends State<SlideShow> {
       child: PageView(
         controller: _controller,
         children: widget.imageAssets.map((imageAsset) {
-          return Container(
+          return SizedBox(
             width: MediaQuery.of(context).size.width, // Match parent width
             child: Image.asset(
               imageAsset,

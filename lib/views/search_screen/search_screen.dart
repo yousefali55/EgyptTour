@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class SearchScreen extends StatefulWidget {
   final List<CityModel> cities;
 
-  const SearchScreen({Key? key, required this.cities}) : super(key: key);
+  const SearchScreen({super.key, required this.cities});
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();

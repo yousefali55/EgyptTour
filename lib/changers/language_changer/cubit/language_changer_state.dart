@@ -5,7 +5,7 @@ class LanguageChangerState extends Equatable {
   final Locale locale;
   final BuildContext? context; // Make context nullable
 
-  LanguageChangerState(this.locale, {this.context});
+  const LanguageChangerState(this.locale, {this.context});
 
   @override
   List<Object?> get props => [locale, context]; // Include context in props and make it nullable

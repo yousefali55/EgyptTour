@@ -21,7 +21,7 @@ class RepeatedTextFormField extends StatelessWidget {
       keyboardType: keyboardType,
       obscureText: hide,
       controller: controller,
-      style: TextStyle(color: Colors.black), // Set text color to black
+      style: const TextStyle(color: Colors.black), // Set text color to black
       decoration: InputDecoration(
         prefixIcon: icon,
         contentPadding: const EdgeInsets.all(17),

@@ -65,7 +65,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     heightSpace(20),
                     Text(
-                      userInfo.fullname ?? '',
+                      userInfo.fullname ,
                       style: GoogleFonts.montserrat(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
@@ -74,7 +74,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     heightSpace(10),
                     Text(
-                      userInfo.email ?? '',
+                      userInfo.email,
                       style: GoogleFonts.montserrat(
                         fontSize: 17,
                         fontWeight: FontWeight.w400,

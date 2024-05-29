@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class EgyptTour extends StatelessWidget {
   final AppRouter appRouter;
 
-  const EgyptTour({Key? key, required this.appRouter}) : super(key: key);
+  const EgyptTour({super.key, required this.appRouter});
 
   @override
   Widget build(BuildContext context) {

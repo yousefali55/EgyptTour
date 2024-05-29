@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:egypttour/mutual_widgets/custom_snack_bar.dart';
 import 'package:egypttour/mutual_widgets/repeated_text_field.dart';
 import 'package:egypttour/mutual_widgets/two_buttons_in_two_screens.dart';
 import 'package:egypttour/spacing/spacing.dart';
@@ -98,15 +99,13 @@ class SecurityScreen extends StatelessWidget {
                                 ForgetPasswordState>(
                               builder: (context, state) {
                                 if (state is ForgetPasswordSuccess) {
-                                  Navigator.push(
+                                  showCustomSnackbar(context, 'Success'.tr(),
+                                      ColorsManager.primaryColor);
+                                  Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (_) => BlocProvider(
-                                        create: (context) =>
-                                            ChangePasswordCubit(),
-                                        child: const ChangePassword(),
-                                      ),
-                                    ),
+                                        builder: (_) => const LoginScreen()),
+                                    (Route<dynamic> route) => false,
                                   );
                                 }
                                 return AlertDialog(
@@ -137,6 +136,16 @@ class SecurityScreen extends StatelessWidget {
                                           context
                                               .read<ForgetPasswordCubit>()
                                               .forgetPassword();
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (_) => BlocProvider(
+                                                create: (context) =>
+                                                    ChangePasswordCubit(),
+                                                child: const ChangePassword(),
+                                              ),
+                                            ),
+                                          );
                                         },
                                         child: state is ForgetPasswordLoading
                                             ? const CircularProgressIndicator()
@@ -169,7 +178,7 @@ class SecurityScreen extends StatelessWidget {
                   BlocBuilder<DeleteUserCubit, DeleteUserState>(
                     builder: (context, state) {
                       if (state is DeleteUserLoading) {
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(),
                         );
                       } else if (state is DeleteUserSuccess) {

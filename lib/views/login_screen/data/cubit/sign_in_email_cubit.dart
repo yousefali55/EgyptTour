@@ -38,7 +38,7 @@ class SignInEmailCubit extends Cubit<SignInEmailState> {
         emit(SignInEmailFailure(errorMessge: errorMessage));
         print(errorMessage);
       }
-    } on DioError catch (dioError) {
+    } on DioException catch (dioError) {
       if (dioError.response != null && dioError.response!.statusCode == 500) {
         final errorMessage = dioError.response!.data['message'] ??
             'Cannot read properties of null (reading \'email\')';
