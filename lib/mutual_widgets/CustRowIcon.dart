@@ -1,9 +1,7 @@
-// ignore_for_file: must_be_immutable
 
 import "package:flutter/material.dart";
 
 class CUSTRowICON extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
   CUSTRowICON({this.image, this.text1, this.ontap});
   String? image;
   String? text1;
@@ -14,7 +12,7 @@ class CUSTRowICON extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
           color: const Color(0xfff6d690)),
-      height: MediaQuery.sizeOf(context).height / 6,
+      height: MediaQuery.sizeOf(context).height / 5,
       width: MediaQuery.sizeOf(context).width / 4.5,
       child: Column(children: [
         IconButton(

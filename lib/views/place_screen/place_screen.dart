@@ -11,11 +11,10 @@ class PlaceScreen extends StatelessWidget {
   final String placeDescription;
   final String img;
   final String rating;
-  final List<TimeSlot> time;
+  final List<TimeSlot>? time; // Add null safety for time
   final String placeLocation;
 
-  const PlaceScreen( {
-    super.key,
+  const PlaceScreen({
     required this.placeNameText,
     required this.placeDescription,
     required this.img,
@@ -48,19 +47,22 @@ class PlaceScreen extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          placeNameText,
-                          style: TextStyle(
+                          placeNameText.length > 20
+                              ? placeNameText.substring(0, 25)
+                              : placeNameText,
+                          overflow: TextOverflow.clip,
+                          style: const TextStyle(
                             color: ColorsManager.brown,
-                            fontSize: 20.sp,
+                            fontSize: 20,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        Spacer(),
+                        const Spacer(),
                         Text(
                           'Rating: $rating',
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: ColorsManager.brown,
-                            fontSize: 20.sp,
+                            fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -70,19 +72,22 @@ class PlaceScreen extends StatelessWidget {
                       placeDescription,
                       style: GoogleFonts.robotoCondensed(
                         fontSize: 25.sp,
-                        color: Color.fromARGB(255, 117, 76, 14),
+                        color: const Color.fromARGB(255, 117, 76, 14),
                       ),
                     ),
                     SizedBox(height: 20.h),
                     Image.asset('assets/images/Days to visit.png'),
                     SizedBox(height: 20.h),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: buildTimes(),
-                    ),
-                    SizedBox(height: 20.h),
+                    if (time != null) ...[
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children:
+                            buildTimes(), // Call buildTimes only if time is not null
+                      ),
+                      SizedBox(height: 20.h),
+                    ],
                     ElevatedButton.icon(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.location_pin,
                         color: Color.fromARGB(255, 255, 255, 255),
                         size: 25.0,
@@ -93,12 +98,13 @@ class PlaceScreen extends StatelessWidget {
                       label: Text(
                         'Location.',
                         style: TextStyle(
-                          color: Color.fromARGB(255, 117, 76, 14),
+                          color: const Color.fromARGB(255, 117, 76, 14),
                           fontSize: 20.sp,
                         ),
                       ),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 246, 214, 144),
+                        backgroundColor:
+                            const Color.fromARGB(255, 246, 214, 144),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20.0),
                         ),
@@ -137,22 +143,23 @@ class PlaceScreen extends StatelessWidget {
   }
 
   List<Widget> buildTimes() {
-    return time.map((timeSlot) {
+    return time!.map((timeSlot) {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 4.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              timeSlot.day ?? 'd',
+              '${timeSlot.day}:',
               style: TextStyle(
-                color: ColorsManager.darkGrey,
+                color: ColorsManager.brown,
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w600,
               ),
             ),
+            SizedBox(width: 8), // Add space between day and time slot
             Text(
-              timeSlot.hours ?? '        d',
+              '${timeSlot.timeSlot}',
               style: TextStyle(
                 color: ColorsManager.brown,
                 fontSize: 18.sp,
@@ -166,8 +173,7 @@ class PlaceScreen extends StatelessWidget {
   }
 
   Future<void> launchMaps(String location) async {
-    // Replace spaces in the location string with '+' for the Google Maps URL
-    String googleMapsUrl = '${Uri.encodeFull(location)}';
+    String googleMapsUrl = Uri.encodeFull(location);
 
     if (await canLaunch(googleMapsUrl)) {
       await launch(googleMapsUrl);

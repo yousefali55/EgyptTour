@@ -1,6 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:egypttour/changers/theme_changer/cubit/theme_changer_cubit.dart';
-import 'package:egypttour/changers/language_changer/cubit/language_changer_cubit.dart'; // Import the cubit
+import 'package:egypttour/changers/language_changer/cubit/language_changer_cubit.dart';
 import 'package:egypttour/egypt_tour.dart';
 import 'package:egypttour/routing/app_router.dart';
 import 'package:flutter/material.dart';

@@ -10,6 +10,9 @@ import 'package:egypttour/views/floating_action/floating_action_button.dart';
 import 'package:egypttour/views/login_screen/data/cubit/sign_in_email_cubit.dart';
 import 'package:egypttour/views/login_screen/widgets/dont_have_account.dart';
 import 'package:egypttour/views/login_screen/widgets/forget_pawword.dart';
+import 'package:egypttour/views/profile_related_screens/change_password/change_password.dart';
+import 'package:egypttour/views/profile_related_screens/change_password/data/cubit/change_password_cubit.dart';
+import 'package:egypttour/views/profile_related_screens/security/data/cubit/forget_password_cubit.dart';
 import 'package:egypttour/views/register_screen/data/cubit/sign_up_email_cubit.dart';
 import 'package:egypttour/views/register_screen/register_screen.dart';
 import 'package:flutter/material.dart';
@@ -18,14 +21,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final GlobalKey<_LoginScreenState> _loginScreenKey = GlobalKey();
   late LanguageChangerCubit _languageChangerCubit;
 
   @override
@@ -38,8 +40,15 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: _languageChangerCubit,
-      child: BlocProvider(
-        create: (context) => SignInEmailCubit(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => SignInEmailCubit(),
+          ),
+          BlocProvider(
+            create: (context) => ForgetPasswordCubit(),
+          ),
+        ],
         child: Scaffold(
           backgroundColor: ColorsManager.primaryColor,
           body: SingleChildScrollView(
@@ -79,8 +88,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     builder: (context, state) {
                       return Form(
-                        key:
-                            _loginScreenKey, // Assign the GlobalKey to the Form
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           mainAxisSize: MainAxisSize.min,
@@ -107,10 +114,78 @@ class _LoginScreenState extends State<LoginScreen> {
                                   .passwordController,
                             ),
                             heightSpace(8),
-                            ForgetPasswordOrChangePassword(
-                              forgetOrChange: 'Forget Password?'.tr(),
-                              onPressed: () {},
-                            ),
+                            // ForgetPasswordOrChangePassword(
+                            //   forgetOrChange: 'Forget Password?'.tr(),
+                            //   onPressed: () {
+                            //     showDialog(
+                            //       context: context,
+                            //       builder: (BuildContext context) {
+                            //         return BlocProvider(
+                            //           create: (context) =>
+                            //               ForgetPasswordCubit(),
+                            //           child: BlocBuilder<ForgetPasswordCubit,
+                            //               ForgetPasswordState>(
+                            //             builder: (context, state) {
+                            //               if (state
+                            //                   is ForgetPasswordSuccessSentEmail) {}
+                            //               return AlertDialog(
+                            //                 content: Column(
+                            //                   mainAxisSize: MainAxisSize.min,
+                            //                   children: [
+                            //                     Center(
+                            //                       child: Text(
+                            //                         'Change Password'.tr(),
+                            //                         style: GoogleFonts.cairo(
+                            //                           color: ColorsManager
+                            //                               .primaryColor,
+                            //                           fontWeight:
+                            //                               FontWeight.w600,
+                            //                           fontSize: 25,
+                            //                         ),
+                            //                       ),
+                            //                     ),
+                            //                     heightSpace(
+                            //                         20), // Replace heightSpace(20)
+                            //                     RepeatedTextFormField(
+                            //                       hintText: 'Enter email'.tr(),
+                            //                       controller: context
+                            //                           .read<
+                            //                               ForgetPasswordCubit>()
+                            //                           .emailController,
+                            //                       hide: false,
+                            //                     ),
+                            //                     ElevatedButton(
+                            //                       onPressed: () {
+                            //                         context
+                            //                             .read<
+                            //                                 ForgetPasswordCubit>()
+                            //                             .forgetPassword();
+                            //                         Navigator.push(
+                            //                             context,
+                            //                             MaterialPageRoute(
+                            //                                 builder: (_) =>
+                            //                                     BlocProvider(
+                            //                                       create: (context) =>
+                            //                                           ChangePasswordCubit(),
+                            //                                       child:
+                            //                                           const ChangePassword(),
+                            //                                     )));
+                            //                       },
+                            //                       child: state
+                            //                               is ForgetPasswordLoading
+                            //                           ? const CircularProgressIndicator()
+                            //                           : Text('Click here'.tr()),
+                            //                     ),
+                            //                   ],
+                            //                 ),
+                            //               );
+                            //             },
+                            //           ),
+                            //         );
+                            //       },
+                            //     );
+                            //   },
+                            // ),
                             heightSpace(50),
                             state is SignInEmailLoading
                                 ? const Center(
@@ -138,25 +213,26 @@ class _LoginScreenState extends State<LoginScreen> {
                                 );
                               },
                             ),
-                            heightSpace(20),
+                            heightSpace(0),
                             Center(
                               child: BlocBuilder<LanguageChangerCubit,
                                   LanguageChangerState>(
                                 builder: (context, languageState) {
                                   return ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        backgroundColor:
+                                            ColorsManager.primaryColor),
                                     onPressed: () {
                                       context
                                           .read<LanguageChangerCubit>()
                                           .switchLanguage();
-                                      _loginScreenKey.currentState
-                                          ?.setState(() {});
                                     },
                                     child: Text(
                                       languageState.locale.languageCode == 'en'
                                           ? 'Switch to Arabic'
                                           : 'حول للإنجليزية',
                                       style: GoogleFonts.sora(
-                                        color: ColorsManager.brown,
+                                        color: ColorsManager.darkerWhite,
                                         fontSize: 18,
                                         fontWeight: FontWeight.w700,
                                       ),
@@ -165,6 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                               ),
                             ),
+                            heightSpace(50),
                           ],
                         ),
                       );
@@ -182,7 +259,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
 String _getErrorMessage(String errorMessage) {
   if (errorMessage.contains("email")) {
-    return "Email field must be unique".tr();
+    return "Failed".tr();
   }
   return errorMessage.tr();
 }

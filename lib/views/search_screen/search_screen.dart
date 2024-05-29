@@ -32,7 +32,7 @@ class _SearchScreenState extends State<SearchScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Container(
+              SizedBox(
                 height: 50,
                 child: Image.asset(
                   'assets/images/tourist.png',
@@ -48,7 +48,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               const SizedBox(
                   height:
-                      10), // Add some space between the text field and the list
+                      10),
               Expanded(
                 child: ListView.builder(
                   itemCount: filteredCities.length,

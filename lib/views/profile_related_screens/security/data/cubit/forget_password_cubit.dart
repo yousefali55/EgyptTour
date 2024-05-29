@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,6 @@ class ForgetPasswordCubit extends Cubit<ForgetPasswordState> {
         print(response.data);
       }
       if (response.data['status'] == 'success') {
-        emit(ForgetPasswordSuccessSentEmail(success: 'seccess'));
       } else {
         print("${response.statusCode} =============== ${response.data}");
       }

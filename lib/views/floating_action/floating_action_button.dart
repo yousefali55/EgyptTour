@@ -35,7 +35,7 @@ class _FloatingActionButtonScreenState
     CityModel(
       cityText: 'Port Said'.tr(),
       endpointEn: '6633d4c8823b68249b2ac122',
-      endpointAr: '',
+      endpointAr: '664d0e0996363511224c15de',
       weatherEndPoint: 'Port said',
     ),
     CityModel(
@@ -52,7 +52,7 @@ class _FloatingActionButtonScreenState
     ),
     CityModel(
       cityText: 'Aswan'.tr(),
-      endpointEn: '',
+      endpointEn: '663d0e2f6c5426b2e2279fba',
       endpointAr: '664a2e45d2481d0c0c8c9d90',
       weatherEndPoint: 'Aswan',
     ),
@@ -103,17 +103,17 @@ class _FloatingActionButtonScreenState
           child: BlocBuilder<GetUserInformationCubit, GetUserInformationState>(
             builder: (context, state) {
               if (state is GetUserInformationLoading) {
-                return const Expanded(
-                  child: SizedBox(
-                    width: 24, // Adjust the width and height as needed
-                    height: 24,
+                return const SizedBox(
+                  height: 50,
+                  child: Center(
                     child: CircularProgressIndicator(
-                      strokeWidth: 2, // Adjust the strokeWidth as needed
+                      strokeWidth: 2,
                       color: ColorsManager.primaryColor,
                     ),
                   ),
                 );
               }
+
               if (state is GetUserInformationSuccess) {
                 final userInfo = state.userInfo;
                 return Column(

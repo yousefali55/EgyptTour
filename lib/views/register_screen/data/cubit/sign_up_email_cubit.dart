@@ -74,7 +74,7 @@ class SignUpEmailCubit extends Cubit<SignUpEmailState> {
       }
     } catch (e) {
       emit(SignUpEmailFailure(errorMessage: e.toString()));
-      print('${e.toString()}');
+      print(e.toString());
     }
   }
 }

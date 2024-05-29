@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:egypttour/views/profile_related_screens/profile/model/user_info.dart';
-import 'package:meta/meta.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'get_user_information_state.dart';
@@ -15,6 +14,7 @@ class GetUserInformationCubit extends Cubit<GetUserInformationState> {
       emit(GetUserInformationLoading());
       final prefs = await SharedPreferences.getInstance();
       final userId = prefs.getString('id');
+      print(userId);
 
       if (userId == null) {
         emit(GetUserInformationFailure(

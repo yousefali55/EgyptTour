@@ -3,24 +3,34 @@ import 'package:egypttour/mutual_widgets/repeated_text_field.dart';
 import 'package:egypttour/mutual_widgets/two_buttons_in_two_screens.dart';
 import 'package:egypttour/spacing/spacing.dart';
 import 'package:egypttour/theming/colors_manager.dart';
+import 'package:egypttour/views/login_screen/login_screen.dart';
+import 'package:egypttour/views/profile_related_screens/change_password/change_password.dart';
+import 'package:egypttour/views/profile_related_screens/change_password/data/cubit/change_password_cubit.dart';
 import 'package:egypttour/views/profile_related_screens/help/help_view.dart';
 import 'package:egypttour/views/profile_related_screens/profile/data/cubit/get_user_information_cubit.dart';
+import 'package:egypttour/views/profile_related_screens/security/data/cubit/delete_user_cubit.dart';
 import 'package:egypttour/views/profile_related_screens/security/data/cubit/forget_password_cubit.dart';
 import 'package:egypttour/views/profile_related_screens/security/widgets/card_container.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SecurityScreen extends StatelessWidget {
-  const SecurityScreen({Key? key});
+  const SecurityScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: BlocProvider(
-        create: (context) => GetUserInformationCubit()..fetchUserInfo(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => GetUserInformationCubit()..fetchUserInfo(),
+          ),
+          BlocProvider(
+            create: (context) => DeleteUserCubit(),
+          ),
+        ],
         child: Scaffold(
           body: SingleChildScrollView(
             child: Padding(
@@ -46,7 +56,7 @@ class SecurityScreen extends StatelessWidget {
                         }),
                       ),
                       widthSpace(20),
-                      Container(
+                      SizedBox(
                         width: 220,
                         child: Column(
                           children: [
@@ -63,7 +73,7 @@ class SecurityScreen extends StatelessWidget {
                               "change security".tr(),
                               style: GoogleFonts.changa(
                                 height: 2,
-                                color: ColorsManager.navyBlue,
+                                color: ColorsManager.primaryColor,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w400,
                               ),
@@ -76,8 +86,7 @@ class SecurityScreen extends StatelessWidget {
                   heightSpace(20),
                   CardContainer(
                     maintext: 'Password'.tr(),
-                    desc:
-                        'change your password'.tr(),
+                    desc: 'change your password'.tr(),
                     textButton: 'Change Password'.tr(),
                     onPressed: () {
                       showDialog(
@@ -88,8 +97,17 @@ class SecurityScreen extends StatelessWidget {
                             child: BlocBuilder<ForgetPasswordCubit,
                                 ForgetPasswordState>(
                               builder: (context, state) {
-                                if (state is ForgetPasswordSuccessSentEmail) {
-                                  _launchGmail();
+                                if (state is ForgetPasswordSuccess) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => BlocProvider(
+                                        create: (context) =>
+                                            ChangePasswordCubit(),
+                                        child: const ChangePassword(),
+                                      ),
+                                    ),
+                                  );
                                 }
                                 return AlertDialog(
                                   content: Column(
@@ -122,7 +140,7 @@ class SecurityScreen extends StatelessWidget {
                                         },
                                         child: state is ForgetPasswordLoading
                                             ? const CircularProgressIndicator()
-                                            :  Text('Click here'.tr()),
+                                            : Text('Click here'.tr()),
                                       ),
                                     ],
                                   ),
@@ -136,29 +154,52 @@ class SecurityScreen extends StatelessWidget {
                   ),
                   heightSpace(8),
                   CardContainer(
-                      maintext: 'Active Sessions'.tr(),
-                      desc:
-                          'Selecting sign out'.tr(),
-                      textButton: 'Sign out'.tr(),
-                      onPressed: () {
-                        Navigator.push(
+                    maintext: 'Active Sessions'.tr(),
+                    desc: 'Selecting sign out'.tr(),
+                    textButton: 'Sign out'.tr(),
+                    onPressed: () {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(builder: (_) => const LoginScreen()),
+                        (Route<dynamic> route) => false,
+                      );
+                    },
+                  ),
+                  heightSpace(8),
+                  BlocBuilder<DeleteUserCubit, DeleteUserState>(
+                    builder: (context, state) {
+                      if (state is DeleteUserLoading) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else if (state is DeleteUserSuccess) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
-                                builder: (_) => const HelpView()));
-                      }),
-                  heightSpace(8),
-                  CardContainer(
-                      maintext: 'Delete Account'.tr(),
-                      desc: 'Permanently delete your Egyptour.com'.tr(),
-                      textButton: 'Delete Account'.tr(),
-                      onPressed: () {}),
+                                builder: (_) => const LoginScreen()),
+                            (Route<dynamic> route) => false,
+                          );
+                        });
+                      }
+
+                      return CardContainer(
+                        maintext: 'Delete Account'.tr(),
+                        desc: 'Permanently delete your Egyptour.com'.tr(),
+                        textButton: 'Delete Account'.tr(),
+                        onPressed: () {
+                          context.read<DeleteUserCubit>().deleteUser();
+                        },
+                      );
+                    },
+                  ),
                   heightSpace(15),
                   TwoButtonsInTwoScreens(
                     onPressedSaved: () {},
                     onPressedDiscared: () {},
                   ),
                   heightSpace(10),
-                  Container(
+                  SizedBox(
                       height: 100,
                       width: 200,
                       child: Image.asset(

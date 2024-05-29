@@ -15,11 +15,6 @@ class SignInEmailCubit extends Cubit<SignInEmailState> {
     try {
       emit(SignInEmailLoading());
       const url = 'https://finish-api.onrender.com/api/user/login/';
-      // final formData = FormData.fromMap(
-      //   {
-      //     "email": emailController.text,
-      //     "password": passwordController.text,
-      //   },
       final response = await dio.post(url, data: {
         "email": emailController.text,
         "password": passwordController.text,
@@ -31,6 +26,8 @@ class SignInEmailCubit extends Cubit<SignInEmailState> {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', token);
         await prefs.setString('id', id);
+        print(token);
+        print(id);
 
         emit(SignInEmailSuccess());
         print("Token stored successfully: $token");

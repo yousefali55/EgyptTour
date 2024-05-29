@@ -7,4 +7,6 @@ class Routes{
   static const String securityScreen ='/SecurityScreen';
   static const String helpView ='/HelpView';
   static const String aboutView ='/AboutView';
+  static const String favourties = '/favourties';
+  static const String generalInformation = '/generalInformation';
 }

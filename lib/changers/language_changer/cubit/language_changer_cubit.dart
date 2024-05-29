@@ -6,7 +6,7 @@ part 'language_changer_state.dart';
 
 class LanguageChangerCubit extends Cubit<LanguageChangerState> {
   LanguageChangerCubit(BuildContext context)
-      : super(LanguageChangerState(Locale('en', 'US'), context: context));
+      : super(LanguageChangerState(const Locale('en', 'US'), context: context));
 
   void switchLanguage() {
     final newLocale = state.locale.languageCode == 'en'

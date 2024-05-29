@@ -1,5 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:egypttour/mutual_widgets/CustRowIcon.dart';
+import 'package:egypttour/mutual_widgets/explore_button.dart';
 import 'package:egypttour/theming/colors_manager.dart';
 import 'package:egypttour/views/city_screen/city_screen.dart';
 import 'package:egypttour/views/home_screen/data/cubit/city_informations_cubit.dart';
@@ -41,8 +41,7 @@ class CityContainer extends StatelessWidget {
                   create: (context) =>
                       CityInformationsCubit(endpoint, weatherEndPoint)
                         ..fetchPlaces(),
-                  child: const CityScreen(
-                  ),
+                  child: const CityScreen(),
                 ),
               ),
             );
@@ -97,16 +96,17 @@ class CityContainer extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              '${weather.current.tempC.toString()}',
+                              '${weather.current.tempC.toString()}°C',
                               style: const TextStyle(
-                                fontSize: 10,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              '${weather.current.tempF.toString()}°C',
+                              '${weather.current.tempF.toString()}°F',
                               style: const TextStyle(
-                                fontSize: 10,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
                               ),
                             ),
                           ],
@@ -116,6 +116,7 @@ class CityContainer extends StatelessWidget {
                     return Container(); // Default state
                   },
                 ),
+                const ExploreButton()
               ],
             ),
           ),
@@ -124,3 +125,5 @@ class CityContainer extends StatelessWidget {
     );
   }
 }
+
+
