@@ -1,24 +1,26 @@
-
 class TimeSlot {
-  final String? day;
-  final String? hours;
+  final String day;
+  final String timeSlot;
 
-  TimeSlot({this.day, this.hours});
+  TimeSlot({required this.day, required this.timeSlot});
 
-  factory TimeSlot.fromJson(Map<String, dynamic>? json) {
-    if (json == null) {
-      return TimeSlot();
-    }
+  factory TimeSlot.fromJson(Map<String, dynamic> json) {
+    final day = json.keys.first;
+    final timeSlot = json.values.first ??
+        "No time slot"; // Provide a default value if the time slot is null
     return TimeSlot(
-      day: json['day'] as String?,
-      hours: json['hours'] as String?,
+      day: day,
+      timeSlot: timeSlot.toString(),
     );
   }
 
   Map<String, dynamic> toJson() => {
-        'day': day,
-        'hours': hours,
+        day: timeSlot,
       };
+
+  String getFormattedTimeSlot() {
+    return '$day:$timeSlot';
+  }
 }
 
 class Place {

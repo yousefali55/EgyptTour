@@ -29,24 +29,31 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   bloc: ^8.1.4
+  cached_network_image: ^3.3.1
   cupertino_icons: ^1.0.6
   dio: ^5.4.3+1
   easy_localization: ^3.0.7
+  equatable: ^2.0.5
+  expansion_tile_card: ^3.0.0
   file_picker: ^8.0.3
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.5
   flutter_screenutil: ^5.9.1
+  flutter_svg: ^2.0.10+1
   google_fonts: ^6.2.1
   image_picker: ^1.1.1
+  panorama_viewer: ^1.0.5
+  shared_preferences: ^2.2.3
+  # sqflite: ^2.3.3+1
+  url_launcher: ^6.2.6
+  url_launcher_android: ^6.3.2
 
 dev_dependencies:
-  flutter_lints: ^3.0.0
+  flutter_lints: ^4.0.0
   flutter_test:
     sdk: flutter
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
 # The following section is specific to Flutter packages.
 flutter:
 
@@ -58,6 +65,7 @@ flutter:
   assets:
     - assets/translations/
     - assets/images/
+    - assets/svgs/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see

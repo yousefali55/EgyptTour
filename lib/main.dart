@@ -1,8 +1,11 @@
-=import 'package:easy_localization/easy_localization.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:egypttour/changers/theme_changer/cubit/theme_changer_cubit.dart';
+import 'package:egypttour/changers/language_changer/cubit/language_changer_cubit.dart';
 import 'package:egypttour/egypt_tour.dart';
 import 'package:egypttour/routing/app_router.dart';
-import 'package:egypttour/theming/colors_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
   runApp(
@@ -13,7 +16,13 @@ void main() {
       startLocale: const Locale('en', 'US'),
       saveLocale: true,
       useOnlyLangCode: true,
-      child: MyApp(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) => ThemeChangerCubit()),
+          BlocProvider(create: (context) => LanguageChangerCubit(context)),
+        ],
+        child: MyApp(),
+      ),
     ),
   );
 }
@@ -27,25 +36,33 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        brightness: Brightness.light,
-        scaffoldBackgroundColor: ColorsManager.white,
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: Colors.black,
-      ),
-      themeMode: MediaQuery.platformBrightnessOf(context) == Brightness.dark
-          ? ThemeMode.dark
-          : ThemeMode.light,
-      home: EgyptTour(
-        appRouter: appRouter,
-      ),
+    return ScreenUtilInit(
+      designSize: const Size(375,  812),
+      minTextAdapt: true,
+      child: BlocBuilder<ThemeChangerCubit, ThemeChangerState>(
+        builder: (context, themeState) {
+              return MaterialApp(
+                localizationsDelegates: context.localizationDelegates,
+                supportedLocales: context.supportedLocales,
+                locale: context.locale,
+                debugShowCheckedModeBanner: false,
+                theme: ThemeData(
+                  brightness: Brightness.light,
+                  scaffoldBackgroundColor: const Color.fromARGB(255, 255, 249, 235),
+                ),
+                darkTheme: ThemeData(
+                  brightness: Brightness.dark,
+                  scaffoldBackgroundColor: Colors.black,
+                ),
+                themeMode: themeState is ThemeChangerChanged && themeState.isDarkModee
+                    ? ThemeMode.dark
+                    : ThemeMode.light,
+                home: EgyptTour(
+                  appRouter: appRouter,
+                ),
+              );
+            },
+          ),
     );
+      }
   }
-}
