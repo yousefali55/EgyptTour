@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:egypttour/mutual_widgets/button_upload_image.dart';
 import 'package:egypttour/mutual_widgets/custom_snack_bar.dart';
 import 'package:egypttour/mutual_widgets/elevated_button_for_sign_in_up.dart';
 import 'package:egypttour/mutual_widgets/repeated_text_field.dart';

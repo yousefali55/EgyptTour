@@ -3,7 +3,6 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
-import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 part 'sign_up_email_state.dart';
 

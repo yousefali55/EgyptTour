@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:egypttour/mutual_widgets/custom_snack_bar.dart';
+import 'package:egypttour/mutual_widgets/elevated_button_for_sign_in_up.dart';
 import 'package:egypttour/mutual_widgets/repeated_text_field.dart';
 import 'package:egypttour/mutual_widgets/two_buttons_in_two_screens.dart';
 import 'package:egypttour/spacing/spacing.dart';
@@ -11,21 +12,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class GeneralInFormation extends StatelessWidget {
-  // List<String> textfields = [
-  //   'Name',
-  //   'Change E-mail address',
-  //   'Gender',
-  //   'Location',
-  //   'Phone number',
-  //   'Nationality',
-  //   'Birth of date',
-  //   'Website URL',
-  //   'Company',
-  //   'Other Website',
-  // ];
-  const GeneralInFormation({
-    super.key,
-  });
+  const GeneralInFormation({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,130 +43,124 @@ class GeneralInFormation extends StatelessWidget {
                         Navigator.pop(context);
                       }
                       return Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           heightSpace(20),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
-                              child: Row(
-                                children: [
-                                  const SizedBox(
-                                    height: 137,
-                                    width: 137,
-                                    // child: CircleAvatar(
-                                      // backgroundImage: userInfo.avatar != null &&
-                                      //         userInfo.avatar!.isNotEmpty
-                                      //     ? NetworkImage(userInfo.avatar![0])
-                                      //     : const AssetImage(
-                                      //             'assets/images/person.jpg')
-                                      //         as ImageProvider,
-                                      // radius: 364,
-                                    // ),
+                            child: Row(
+                              children: [
+                                // SizedBox(
+                                //   height: 137,
+                                //   width: 137,
+                                //   child: CircleAvatar(
+                                //     backgroundImage: userInfo.avatar != null &&
+                                //             userInfo.!.isNotEmpty
+                                //         ? NetworkImage(userInfo.avatar![0])
+                                //         : const AssetImage(
+                                //                 'assets/images/person.jpg')
+                                //             as ImageProvider,
+                                //     radius: 364,
+                                //   ),
+                                // ),
+                                // const SizedBox(width: 20),
+                                Text(
+                                  'Personal details and Addresses'.tr(),
+                                  style: GoogleFonts.montserrat(
+                                    color: ColorsManager.primaryColor,
+                                    fontSize: 23,
+                                    fontWeight: FontWeight.w500,
                                   ),
-                                  widthSpace(20),
-                                  Center(
-                                    child: Text(
-                                      'Personal details and Adresses'.tr(),
-                                      style: GoogleFonts.montserrat(
-                                        color: ColorsManager.primaryColor,
-                                        fontSize: 23,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
+                            ),
                           ),
-                          // Padding(
-                          //   padding: const EdgeInsets.only(left: 35),
-                          //   child: Row(
-                          //     children: [
-                          //       SvgPicture.asset(
-                          //         'assets/svgs/replace.svg',
-                          //       ),
-                          //       TextButton(
-                          //         style: const ButtonStyle(
-                          //           visualDensity: VisualDensity.comfortable,
-                          //         ),
-                          //         onPressed: () {
-                          //           context
-                          //               .read<EditUserInfoCubit>()
-                          //               .pickImage();
-                          //         },
-                          //         child: Text(
-                          //           'Replace'.tr(),
-                          //           style: GoogleFonts.changa(
-                          //             fontSize: 16,
-                          //             color: ColorsManager.primaryColor,
-                          //             fontWeight: FontWeight.w400,
-                          //           ),
-                          //         ),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
-                          heightSpace(15),
+                          heightSpace(30),
                           const Divider(
                             color: ColorsManager.primaryColor,
                             height: 1,
                           ),
-                          Text(
-                            'Personal details and Adresses'.tr(),
-                            style: GoogleFonts.changa(
-                              fontSize: 20,
-                              color: ColorsManager.primaryColor,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          heightSpace(10),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 RepeatedTextFormField(
                                   controller: TextEditingController(),
                                   hintText: "Full name".tr(),
                                   hide: false,
                                 ),
-                                // ),
-                                // RepeatedTextFormField(
-                                //   controller: TextEditingController(),
-                                //   hintText: "Email".tr(),
-                                //   hide: false,
-                                // ),
-                                // RepeatedTextFormField(
-                                //   controller: TextEditingController(),
-                                //   hintText: "Full name".tr(),
-                                //   hide: false,
-                                // ),
-                                // RepeatedTextFormField(
-                                //   controller: TextEditingController(),
-                                //   hintText: "Full name".tr(),
-                                //   hide: false,
-                                // ),
-                                // RepeatedTextFormField(
-                                //   controller: TextEditingController(),
-                                //   hintText: "Full name".tr(),
-                                //   hide: false,
-                                // ),
+                                heightSpace(20),
+                                RepeatedTextFormField(
+                                  controller: TextEditingController(),
+                                  hintText: "Change E-mail address".tr(),
+                                  hide: false,
+                                ),
+                                heightSpace(20),
+                                DropdownButtonFormField<String>(
+                                  borderRadius: BorderRadius.circular(20),
+                                  dropdownColor: ColorsManager.primaryColor,
+                                  value: null,
+                                  onChanged: (value) {},
+                                  items: <String>['Male'.tr(), 'Female'.tr(),]
+                                      .map<DropdownMenuItem<String>>(
+                                        (String value) =>
+                                            DropdownMenuItem<String>(
+                                          value: value,
+                                          child: Text(value),
+                                        ),
+                                      )
+                                      .toList(),
+                                  decoration:  InputDecoration(
+                                    labelText: 'Gender'.tr(),
+                                    border: const OutlineInputBorder(),
+                                  ),
+                                ),
+                                heightSpace(20),
+                                ElevatedButtonForSignInUp(
+                                  signInOrUp: 'Select Data'.tr(),
+                                  onPressed: () async {
+                                    final DateTime? selectedDate =
+                                        await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(1900),
+                                      lastDate: DateTime.now(),
+                                    );
+
+                                    if (selectedDate != null) {
+                                      // Handle the selected date
+                                    }
+                                  },
+                                ),
+                                heightSpace(20),
+                                ElevatedButtonForSignInUp(
+                                  signInOrUp: 'Get Location'.tr(),
+                                  onPressed: () async {
+                                    // LocationPermission permission =
+                                    //     await Geolocator.requestPermission();
+                                    // if (permission ==
+                                    //     LocationPermission.denied) {
+                                    //   // Handle denied permission
+                                    // } else {
+                                    //   Position position =
+                                    //       await Geolocator.getCurrentPosition(
+                                    //     desiredAccuracy: LocationAccuracy.high,
+                                    //   );
+                                    //   // Handle the user's location (position.latitude and position.longitude)
+                                    // }
+                                  },
+                                ),
                               ],
                             ),
                           ),
-                          // Expanded(
-                          //   child: ListView.builder(
-                          //     itemCount: textfields.length,
-                          //     itemBuilder: (BuildContext context, int index) {
-                          //       return CustomTextFormField(text: textfields[index]);
-                          //     },
-                          //   ),
-                          // ),
                           TwoButtonsInTwoScreens(
                             onPressedSaved:
                                 context.read<EditUserInfoCubit>().editUserInfo,
                             onPressedDiscared: () {
                               Navigator.pop(context);
                             },
-                          )
+                          ),
                         ],
                       );
                     },
