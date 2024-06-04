@@ -36,7 +36,7 @@ class AppRouter {
         );
       case Routes.aboutView:
         return MaterialPageRoute(
-          builder: (_) => AboutView(),
+          builder: (_) => AboutScreen(),
         );
       case Routes.securityScreen:
         return MaterialPageRoute(

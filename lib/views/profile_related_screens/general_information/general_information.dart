@@ -8,7 +8,6 @@ import 'package:egypttour/views/profile_related_screens/general_information/data
 import 'package:egypttour/views/profile_related_screens/profile/data/cubit/get_user_information_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class GeneralInFormation extends StatelessWidget {
@@ -54,7 +53,7 @@ class GeneralInFormation extends StatelessWidget {
                       if (state is EditUserInfoSuccess) {
                         showCustomSnackbar(context, 'Success'.tr(),
                             ColorsManager.primaryColor);
-                            Navigator.pop(context);
+                        Navigator.pop(context);
                       }
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,71 +61,73 @@ class GeneralInFormation extends StatelessWidget {
                           heightSpace(20),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Row(
-                              children: [
-                                SizedBox(
-                                  height: 137,
-                                  width: 137,
-                                  child: CircleAvatar(
-                                    backgroundImage:
-                                        // ignore: unnecessary_type_check
-                                        state is GetUserInformationSuccess
-                                            ? NetworkImage(userInfo.avatar[0])
-                                            : const AssetImage(
-                                                'assets/images/person.jpg'),
-                                    radius: 364,
+                              child: Row(
+                                children: [
+                                  const SizedBox(
+                                    height: 137,
+                                    width: 137,
+                                    // child: CircleAvatar(
+                                      // backgroundImage: userInfo.avatar != null &&
+                                      //         userInfo.avatar!.isNotEmpty
+                                      //     ? NetworkImage(userInfo.avatar![0])
+                                      //     : const AssetImage(
+                                      //             'assets/images/person.jpg')
+                                      //         as ImageProvider,
+                                      // radius: 364,
+                                    // ),
                                   ),
-                                ),
-                                widthSpace(20),
-                                Text(
-                                  'Personal details and Adresses'.tr(),
-                                  style: GoogleFonts.montserrat(
-                                    color: ColorsManager.primaryColor,
-                                    fontSize: 23,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 35),
-                            child: Row(
-                              children: [
-                                SvgPicture.asset(
-                                  'assets/svgs/replace.svg',
-                                ),
-                                TextButton(
-                                  style: const ButtonStyle(
-                                    visualDensity: VisualDensity.comfortable,
-                                  ),
-                                  onPressed: () {
-                                    context
-                                        .read<EditUserInfoCubit>()
-                                        .pickImage();
-                                  },
-                                  child: Text(
-                                    'Replace',
-                                    style: GoogleFonts.changa(
-                                      fontSize: 16,
-                                      color: ColorsManager.navyBlue,
-                                      fontWeight: FontWeight.w400,
+                                  widthSpace(20),
+                                  Center(
+                                    child: Text(
+                                      'Personal details and Adresses'.tr(),
+                                      style: GoogleFonts.montserrat(
+                                        color: ColorsManager.primaryColor,
+                                        fontSize: 23,
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
+                                ],
+                              ),
                           ),
+                          // Padding(
+                          //   padding: const EdgeInsets.only(left: 35),
+                          //   child: Row(
+                          //     children: [
+                          //       SvgPicture.asset(
+                          //         'assets/svgs/replace.svg',
+                          //       ),
+                          //       TextButton(
+                          //         style: const ButtonStyle(
+                          //           visualDensity: VisualDensity.comfortable,
+                          //         ),
+                          //         onPressed: () {
+                          //           context
+                          //               .read<EditUserInfoCubit>()
+                          //               .pickImage();
+                          //         },
+                          //         child: Text(
+                          //           'Replace'.tr(),
+                          //           style: GoogleFonts.changa(
+                          //             fontSize: 16,
+                          //             color: ColorsManager.primaryColor,
+                          //             fontWeight: FontWeight.w400,
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // ),
                           heightSpace(15),
                           const Divider(
-                            color: ColorsManager.navyBlue,
+                            color: ColorsManager.primaryColor,
                             height: 1,
                           ),
                           Text(
-                            'Basic Information',
+                            'Personal details and Adresses'.tr(),
                             style: GoogleFonts.changa(
                               fontSize: 20,
-                              color: ColorsManager.navyBlue,
+                              color: ColorsManager.primaryColor,
                               fontWeight: FontWeight.w400,
                             ),
                           ),
@@ -173,7 +174,7 @@ class GeneralInFormation extends StatelessWidget {
                           //   ),
                           // ),
                           TwoButtonsInTwoScreens(
-                            onPressedSaved: 
+                            onPressedSaved:
                                 context.read<EditUserInfoCubit>().editUserInfo,
                             onPressedDiscared: () {
                               Navigator.pop(context);

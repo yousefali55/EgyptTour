@@ -2,7 +2,9 @@ import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 part 'sign_up_email_state.dart';
 
 class SignUpEmailCubit extends Cubit<SignUpEmailState> {
@@ -15,34 +17,29 @@ class SignUpEmailCubit extends Cubit<SignUpEmailState> {
   final Dio _dio = Dio();
   File? avatarFile;
 
-  Future<void> pickImage() async {
-    emit(SignUpEmailImageLoading());
-    final ImagePicker imagePicker = ImagePicker();
-    final XFile? imagegallery =
-        await imagePicker.pickImage(source: ImageSource.gallery);
-    if (imagegallery != null) {
-      avatarFile = File(imagegallery.path);
-      emit(SignUpEmailImageSuccess(image: avatarFile));
-    } else {
-      avatarFile = null;
-      emit(SignUpEmailImageFailure(errorMessage: 'Image not picked'));
-    }
-  }
-
   Future<void> signUpEmail() async {
     emit(SignUpEmailLoading());
 
     const url = 'https://finish-api.onrender.com/api/user/register/';
     FormData formData;
+
     try {
+      if (avatarFile == null) {
+        final byteData = await rootBundle.load('assets/images/person.jpg');
+        final tempFile =
+            File('${(await getTemporaryDirectory()).path}/person.jpg');
+        avatarFile = await tempFile.writeAsBytes(byteData.buffer.asUint8List());
+      }
+
       formData = FormData.fromMap(
         {
           "fullname": fullName.text,
           "email": email.text,
           "password": password.text,
           "passwordConfirm": passwordConfirm.text,
-          if (avatarFile != null && await avatarFile!.exists())
-            "avatar": await MultipartFile.fromFile(avatarFile!.path),
+          "avatar": await MultipartFile.fromFile(avatarFile!.path),
+          // if (avatarFile != null && await avatarFile!.exists())
+          //   "avatar": await MultipartFile.fromFile(avatarFile!.path)
         },
       );
     } catch (e) {

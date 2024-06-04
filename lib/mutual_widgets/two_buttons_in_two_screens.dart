@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:egypttour/spacing/spacing.dart';
 import 'package:egypttour/theming/colors_manager.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class TwoButtonsInTwoScreens extends StatelessWidget {
           ),
           onPressed: onPressedDiscared,
           child: Text(
-            'Discard',
+            "Discard".tr(),
             style: GoogleFonts.cairo(
               fontSize: 22,
               fontWeight: FontWeight.w500,
@@ -41,7 +42,7 @@ class TwoButtonsInTwoScreens extends StatelessWidget {
           ),
           onPressed: onPressedSaved,
           child: Text(
-            'Save change',
+            "Save change".tr(),
             style: GoogleFonts.montserrat(
               color: ColorsManager.brown,
               fontSize: 16,

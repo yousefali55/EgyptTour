@@ -14,7 +14,8 @@ class PlaceScreen extends StatelessWidget {
   final List<TimeSlot>? time; // Add null safety for time
   final String placeLocation;
 
-  const PlaceScreen({super.key, 
+  const PlaceScreen({
+    super.key, 
     required this.placeNameText,
     required this.placeDescription,
     required this.img,
@@ -47,10 +48,10 @@ class PlaceScreen extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          placeNameText.length > 20
-                              ? placeNameText.substring(0, 25)
+                          placeNameText.length > 25
+                              ? placeNameText.substring(0, 25) + '...'
                               : placeNameText,
-                          overflow: TextOverflow.clip,
+                          overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             color: ColorsManager.brown,
                             fontSize: 20,

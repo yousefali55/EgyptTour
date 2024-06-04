@@ -3,7 +3,7 @@ class UserInfo {
   final String fullname;
   final String email;
   final String password;
-  final List<dynamic> avatar;
+  // final List<dynamic>? avatar;
   final String role;
   final bool activateEmail;
   final String token;
@@ -13,7 +13,7 @@ class UserInfo {
     required this.fullname,
     required this.email,
     required this.password,
-    required this.avatar,
+    // this.avatar,
     required this.role,
     required this.activateEmail,
     required this.token,
@@ -26,7 +26,7 @@ class UserInfo {
       fullname: userData['fullname'],
       email: userData['email'],
       password: userData['password'],
-      avatar: userData['avatar'],
+      // avatar: userData['avatar'],
       role: userData['role'],
       activateEmail: userData['activateEmail'],
       token: userData['token'],

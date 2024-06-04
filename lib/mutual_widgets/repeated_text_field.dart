@@ -21,13 +21,13 @@ class RepeatedTextFormField extends StatelessWidget {
       keyboardType: keyboardType,
       obscureText: hide,
       controller: controller,
-      style: const TextStyle(color: Colors.black), // Set text color to black
+      style: const TextStyle(color: ColorsManager.primaryColor), // Set text color to black
       decoration: InputDecoration(
         prefixIcon: icon,
         contentPadding: const EdgeInsets.all(17),
         hintText: hintText,
         hintStyle: GoogleFonts.sora(
-          color: const Color.fromARGB(128, 36, 52, 67),
+          color: ColorsManager.primaryColor,
           fontSize: 15,
           fontWeight: FontWeight.w500,
         ),

@@ -52,20 +52,21 @@ class ProfileScreen extends StatelessWidget {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-
                     SizedBox(
                       height: 137,
                       width: 137,
-                      child: CircleAvatar(
-                        backgroundImage: state is GetUserInformationSuccess
-                            ? NetworkImage(userInfo.avatar[0])
-                            : const AssetImage('assets/images/person.png'),
-                        radius: 364,
-                      ),
+                      // child: CircleAvatar(
+                        // backgroundImage: userInfo.avatar != null &&
+                        //         userInfo.avatar!.isNotEmpty
+                        //     ? NetworkImage(userInfo.avatar![0])
+                        //     : const AssetImage('assets/images/person.jpg')
+                        //         as ImageProvider,
+                      //   radius: 364,
+                      // ),
                     ),
                     heightSpace(20),
                     Text(
-                      userInfo.fullname ,
+                      userInfo.fullname,
                       style: GoogleFonts.montserrat(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
@@ -92,7 +93,7 @@ class ProfileScreen extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) {
                           return GestureDetector(
                             onTap: () {
-                              if (index == screensName.length - 1) {
+                              if (index == screensName.length ) {
                               } else if (screensName[index].isNotEmpty) {
                                 Navigator.pushNamed(
                                     context, screensName[index]);

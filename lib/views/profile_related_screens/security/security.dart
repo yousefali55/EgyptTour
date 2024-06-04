@@ -7,7 +7,6 @@ import 'package:egypttour/theming/colors_manager.dart';
 import 'package:egypttour/views/login_screen/login_screen.dart';
 import 'package:egypttour/views/profile_related_screens/change_password/change_password.dart';
 import 'package:egypttour/views/profile_related_screens/change_password/data/cubit/change_password_cubit.dart';
-import 'package:egypttour/views/profile_related_screens/help/help_view.dart';
 import 'package:egypttour/views/profile_related_screens/profile/data/cubit/get_user_information_cubit.dart';
 import 'package:egypttour/views/profile_related_screens/security/data/cubit/delete_user_cubit.dart';
 import 'package:egypttour/views/profile_related_screens/security/data/cubit/forget_password_cubit.dart';
@@ -43,18 +42,18 @@ class SecurityScreen extends StatelessWidget {
                       SizedBox(
                         height: 120,
                         width: 120,
-                        child: BlocBuilder<GetUserInformationCubit,
-                            GetUserInformationState>(builder: (context, state) {
-                          if (state is GetUserInformationFailure) {
-                            print('Failed'.tr());
-                          }
-                          return CircleAvatar(
-                            backgroundImage: state is GetUserInformationSuccess
-                                ? NetworkImage(state.userInfo.avatar[0])
-                                : const AssetImage('assets/images/person.jpg'),
-                            radius: 200,
-                          );
-                        }),
+                        // child: BlocBuilder<GetUserInformationCubit,
+                        //     GetUserInformationState>(builder: (context, state) {
+                        //   if (state is GetUserInformationFailure) {
+                        //     print('Failed'.tr());
+                        //   }
+                        //   // return CircleAvatar(
+                        //     // backgroundImage: state is GetUserInformationSuccess
+                        //     //     ? NetworkImage(state.userInfo.avatar[0])
+                        //     //     : const AssetImage('assets/images/person.jpg'),
+                        //     // radius: 200,
+                        //   // );
+                        // }),
                       ),
                       widthSpace(20),
                       SizedBox(

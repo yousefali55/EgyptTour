@@ -58,36 +58,38 @@ class RegisterScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                 TextInSignInUp(
-                                    textWelcomeOrGetStarted: 'Create account'.tr()),
+                                TextInSignInUp(
+                                    textWelcomeOrGetStarted:
+                                        'Create account'.tr()),
                                 SizedBox(
                                   height: 210.h,
                                   width: 190.w,
-                                  child: Stack(
-                                    children: [
-                                      Center(
-                                        child: CircleAvatar(
-                                          radius: 140,
-                                          backgroundImage:
-                                              state is SignUpEmailImageSuccess &&
-                                                      state.image != null
-                                                  ? FileImage(state.image!)
-                                                  : const AssetImage('assets/images/person.jpg'),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        right: 80,
-                                        bottom: 0,
-                                        child: ButtonUploadIamge(
-                                          onTap: () {
-                                            context
-                                                .read<SignUpEmailCubit>()
-                                                .pickImage();
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                  // child: Stack(
+                                  //   children: [
+                                  //     Center(
+                                  //       child: CircleAvatar(
+                                  //         radius: 140,
+                                  //         backgroundImage:
+                                  //             state is SignUpEmailImageSuccess &&
+                                  //                     state.image != null
+                                  //                 ? FileImage(state.image!)
+                                  //                 : const AssetImage(
+                                  //                     'assets/images/person.jpg'),
+                                  //       ),
+                                  //     ),
+                                  //     Positioned(
+                                  //       right: 80,
+                                  //       bottom: 0,
+                                  //       child: ButtonUploadIamge(
+                                  //         onTap: () {
+                                  //           context
+                                  //               .read<SignUpEmailCubit>()
+                                  //               .pickImage();
+                                  //         },
+                                  //       ),
+                                  //     ),
+                                  //   ],
+                                  // ),
                                 ),
                                 heightSpace(20),
                                 RepeatedTextFormField(
@@ -119,80 +121,6 @@ class RegisterScreen extends StatelessWidget {
                                       .read<SignUpEmailCubit>()
                                       .passwordConfirm,
                                 ),
-                                heightSpace(10),
-                                // DropdownButtonFormField<String>(
-                                //   // padding: const EdgeInsets.only(right: 85, left: 34),
-                                //   focusColor: ColorsManager.white,
-                                //   dropdownColor: ColorsManager.white,
-                                //   items: const [
-                                //     DropdownMenuItem(
-                                //       value: 'ADMIN',
-                                //       child: Text('ADMIN'),
-                                //     ),
-                                //     DropdownMenuItem(
-                                //       value: 'USER',
-                                //       child: Text('USER'),
-                                //     ),
-                                //   ],
-                                //   onChanged: (value) {
-                                //     if (value != null) {
-                                //     }
-                                //   },
-                                //   decoration: InputDecoration(
-                                //     contentPadding: const EdgeInsets.all(5),
-                                //     hintText: 'User type',
-                                //     hintStyle: GoogleFonts.sora(
-                                //       color:
-                                //           const Color.fromARGB(128, 36, 52, 67),
-                                //       fontSize: 15,
-                                //       fontWeight: FontWeight.w500,
-                                //     ),
-                                //     filled: true,
-                                //     fillColor: const Color(0xFFFFF9EB),
-                                //     border: OutlineInputBorder(
-                                //       borderRadius: BorderRadius.circular(8),
-                                //     ),
-                                //     focusedBorder: OutlineInputBorder(
-                                //       borderRadius: BorderRadius.circular(10),
-                                //       borderSide: const BorderSide(
-                                //         width: 1,
-                                //       ),
-                                //     ),
-                                //   ),
-                                // ),
-                                // DropdownButtonFormField<String>(
-                                //   value: context
-                                //           .read<SignUpEmailCubit>()
-                                //           .role
-                                //           .text ??
-                                //       'USER', // Provide a default value if it's null
-                                //   items: const [
-                                //     DropdownMenuItem(
-                                //       value: 'USER',
-                                //       child: Text('USER'),
-                                //     ),
-                                //     DropdownMenuItem(
-                                //       value: 'ADMIN',
-                                //       child: Text('ADMIN'),
-                                //     ),
-                                //   ],
-                                //   onChanged: (value) {},
-                                //   decoration: InputDecoration(
-                                //     hintText: 'User type'.tr(),
-                                //     filled: true,
-                                //     fillColor: Colors.white,
-                                //     border: OutlineInputBorder(
-                                //       borderRadius: BorderRadius.circular(8),
-                                //     ),
-                                //     focusedBorder: OutlineInputBorder(
-                                //       borderRadius: BorderRadius.circular(10),
-                                //       borderSide: const BorderSide(
-                                //         color: ColorsManager.primaryColor,
-                                //         width: 1,
-                                //       ),
-                                //     ),
-                                //   ),
-                                // ),
                                 heightSpace(30),
                                 state is SignUpEmailLoading
                                     ? const Center(

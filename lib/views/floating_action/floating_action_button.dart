@@ -118,17 +118,18 @@ class _FloatingActionButtonScreenState
                 final userInfo = state.userInfo;
                 return Column(
                   children: [
-                    SizedBox(
-                      height: 180,
-                      width: 180,
-                      child: CircleAvatar(
+                    // SizedBox(
+                    //   height: 180,
+                    //   width: 180,
+                      // child: CircleAvatar(
                         // ignore: unnecessary_type_check
-                        backgroundImage: state is GetUserInformationSuccess
-                            ? NetworkImage(userInfo.avatar[0])
-                            : const AssetImage('assets/images/person.png'),
-                        radius: 364,
-                      ),
-                    ),
+                        // backgroundImage: state is GetUserInformationSuccess
+                        //     ? NetworkImage(userInfo.avatar[0])
+                            // : const AssetImage('assets/images/person.png'),
+                        // radius: 364,
+                      // ),
+                    // ),
+                    heightSpace(50),
                     Text(
                       overflow: TextOverflow.ellipsis,
                       userInfo.fullname,
