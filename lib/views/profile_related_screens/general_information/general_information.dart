@@ -65,7 +65,7 @@ class GeneralInFormation extends StatelessWidget {
                                 // ),
                                 // const SizedBox(width: 20),
                                 Text(
-                                  'Personal details and Addresses'.tr(),
+                                  'Personal details and Adresses'.tr(),
                                   style: GoogleFonts.montserrat(
                                     color: ColorsManager.primaryColor,
                                     fontSize: 23,
@@ -118,7 +118,7 @@ class GeneralInFormation extends StatelessWidget {
                                 ),
                                 heightSpace(20),
                                 ElevatedButtonForSignInUp(
-                                  signInOrUp: 'Select Data'.tr(),
+                                  signInOrUp: 'Select Date'.tr(),
                                   onPressed: () async {
                                     final DateTime? selectedDate =
                                         await showDatePicker(
