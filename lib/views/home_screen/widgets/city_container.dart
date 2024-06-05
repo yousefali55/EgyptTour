@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:egypttour/mutual_widgets/explore_button.dart';
+import 'package:egypttour/spacing/spacing.dart';
 import 'package:egypttour/theming/colors_manager.dart';
 import 'package:egypttour/views/city_screen/city_screen.dart';
 import 'package:egypttour/views/home_screen/data/cubit/city_informations_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CityContainer extends StatelessWidget {
@@ -51,33 +53,23 @@ class CityContainer extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               color: ColorsManager.primaryColor,
             ),
-            height: 300,
-            width: 160,
+            height: 300.h,
+            width: 160.w,
             child: Column(
               children: [
-                const SizedBox(height: 10),
-                Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Container(
-                    height: 100,
-                    width: 140,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.asset(
-                        imageAsset,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                heightSpace(12),
+                SizedBox(
+                  height: 130.h,
+                  child: Image.asset(
+                    imageAsset,
+                    fit: BoxFit.contain,
                   ),
                 ),
                 Text(
                   cityText,
                   style: GoogleFonts.sora(
-                    color: ColorsManager.offWhite,
-                    fontSize: 20,
+                    color: ColorsManager.white,
+                    fontSize: 20.sp,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -97,16 +89,18 @@ class CityContainer extends StatelessWidget {
                           children: [
                             Text(
                               '${weather.current.tempC.toString()}°C',
-                              style: const TextStyle(
-                                fontSize: 20,
+                              style:  TextStyle(
+                                color: ColorsManager.white,
+                                fontSize: 20.sp,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
                               '${weather.current.tempF.toString()}°F',
-                              style: const TextStyle(
+                              style:  TextStyle(
+                                color: ColorsManager.white,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 20,
+                                fontSize: 20.sp,
                               ),
                             ),
                           ],
@@ -116,7 +110,10 @@ class CityContainer extends StatelessWidget {
                     return Container(); // Default state
                   },
                 ),
-                const ExploreButton()
+                 ExploreButton(
+                  height: 50.h,
+                  width: 150.w,
+                )
               ],
             ),
           ),

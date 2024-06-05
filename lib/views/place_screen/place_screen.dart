@@ -15,7 +15,7 @@ class PlaceScreen extends StatelessWidget {
   final String placeLocation;
 
   const PlaceScreen({
-    super.key, 
+    super.key,
     required this.placeNameText,
     required this.placeDescription,
     required this.img,
@@ -48,13 +48,13 @@ class PlaceScreen extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          placeNameText.length > 25
-                              ? placeNameText.substring(0, 25) + '...'
+                          placeNameText.length > 15
+                              ? '${placeNameText.substring(0, 15)}...'
                               : placeNameText,
                           overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
+                          style:  TextStyle(
                             color: ColorsManager.brown,
-                            fontSize: 20,
+                            fontSize: 20.sp,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -73,7 +73,7 @@ class PlaceScreen extends StatelessWidget {
                       placeDescription,
                       style: GoogleFonts.robotoCondensed(
                         fontSize: 25.sp,
-                        color: const Color.fromARGB(255, 117, 76, 14),
+                        color: ColorsManager.brown,
                       ),
                     ),
                     SizedBox(height: 20.h),

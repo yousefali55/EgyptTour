@@ -13,7 +13,7 @@ class CUSTRowICON extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           color: const Color(0xfff6d690)),
       height: MediaQuery.sizeOf(context).height / 5,
-      width: MediaQuery.sizeOf(context).width / 4.5,
+      width: MediaQuery.sizeOf(context).width / 4.6,
       child: Column(children: [
         IconButton(
           color: const Color(0xfff6d690),

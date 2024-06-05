@@ -19,11 +19,14 @@ class ChangePassword extends StatelessWidget {
         listener: (context, state) {
           if (state is ChangePasswordSuccess) {
             showCustomSnackbar(context, "Success".tr(), ColorsManager.brown);
-            Future.delayed(Duration.zero, () {
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => const LoginScreen()),
-              );
-            });
+            Future.delayed(
+              Duration.zero,
+              () {
+                Navigator.of(context).pushReplacement(
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
+                );
+              },
+            );
           } else if (state is ChangePasswordFailure) {
             showCustomSnackbar(context, state.errorMessage, ColorsManager.red);
           }
@@ -36,13 +39,15 @@ class ChangePassword extends StatelessWidget {
                 heightSpace(50),
                 RepeatedTextFormField(
                   hintText: "Enter email".tr(),
-                  controller: context.read<ChangePasswordCubit>().emailController,
+                  controller:
+                      context.read<ChangePasswordCubit>().emailController,
                   hide: false,
                 ),
                 heightSpace(30),
                 RepeatedTextFormField(
                   hintText: "enter code".tr(),
-                  controller: context.read<ChangePasswordCubit>().codeController,
+                  controller:
+                      context.read<ChangePasswordCubit>().codeController,
                   hide: false,
                 ),
                 heightSpace(30),
@@ -50,6 +55,14 @@ class ChangePassword extends StatelessWidget {
                   hintText: "Enter password".tr(),
                   controller:
                       context.read<ChangePasswordCubit>().passwrodController,
+                  hide: false,
+                ),
+                heightSpace(30),
+                RepeatedTextFormField(
+                  hintText: "Confirm password".tr(),
+                  controller: context
+                      .read<ChangePasswordCubit>()
+                      .passwrodConfirmController,
                   hide: false,
                 ),
                 heightSpace(250),

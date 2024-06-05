@@ -5,29 +5,34 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ExploreButton extends StatelessWidget {
+  final double height;
+  final double width;
   const ExploreButton({
-    super.key,
+    super.key, required this.height, required this.width,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 40.h,
-        width: 90.w,
+        // height: 50.h,
+        // width: 150.w,
         decoration: const BoxDecoration(
             color: ColorsManager.darkerWhite,
-            borderRadius: BorderRadius.all(Radius.circular(20))),
+            borderRadius: BorderRadius.all(Radius.circular(40))),
         child: Expanded(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Icon(
+                size: 40.h,
+                Icons.search,
+                color: ColorsManager.primaryColor,
+              ),
               Text(
                 'Explore'.tr(),
-                style: GoogleFonts.sora(color: Colors.black),
-              ),
-              const Icon(
-                Icons.search,
-                color: Colors.black,
+                style: GoogleFonts.sora(
+                    color: ColorsManager.primaryColor,
+                    fontWeight: FontWeight.w700),
               ),
             ],
           ),

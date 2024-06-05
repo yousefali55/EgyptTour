@@ -56,9 +56,6 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                 removeFavorite(place.id!);
               },
             ),
-            // onTap: () {
-            //   Navigator.push(context, MaterialPageRoute(builder: (_)=> PlaceScreen(placeNameText: place.name!, placeDescription: place.description!, img: place.img!, rating: place.rate!, time: place.time, placeLocation: place.location!)));
-            // },
           );
         },
       ),
@@ -85,3 +82,4 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     }
   }
 }
+//             leading: Image.network('https://docs.google.com/uc?id=${extractDriveId(place.img!)}'),

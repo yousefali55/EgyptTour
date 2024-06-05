@@ -1,10 +1,12 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:egypttour/changers/theme_changer/cubit/theme_changer_cubit.dart';
+import 'package:egypttour/mutual_widgets/elevated_button_for_sign_in_up.dart';
 import 'package:egypttour/spacing/spacing.dart';
 import 'package:egypttour/theming/colors_manager.dart';
 import 'package:egypttour/views/favourites_screen/favourites_screen.dart';
 import 'package:egypttour/views/floating_action/city_text_and_endpoint_model.dart';
 import 'package:egypttour/views/home_screen/home_screen.dart';
+import 'package:egypttour/views/login_screen/login_screen.dart';
 import 'package:egypttour/views/profile_related_screens/profile/data/cubit/get_user_information_cubit.dart';
 import 'package:egypttour/views/profile_related_screens/profile/profile_screen.dart';
 import 'package:egypttour/views/search_screen/search_screen.dart';
@@ -81,10 +83,7 @@ class _FloatingActionButtonScreenState
         cities: cities,
       ),
       const FavouritesScreen(),
-      BlocProvider(
-        create: (context) => GetUserInformationCubit()..fetchUserInfo(),
-        child: ProfileScreen(),
-      ),
+      ProfileScreen(),
     ];
   }
 
@@ -121,13 +120,13 @@ class _FloatingActionButtonScreenState
                     // SizedBox(
                     //   height: 180,
                     //   width: 180,
-                      // child: CircleAvatar(
-                        // ignore: unnecessary_type_check
-                        // backgroundImage: state is GetUserInformationSuccess
-                        //     ? NetworkImage(userInfo.avatar[0])
-                            // : const AssetImage('assets/images/person.png'),
-                        // radius: 364,
-                      // ),
+                    // child: CircleAvatar(
+                    // ignore: unnecessary_type_check
+                    // backgroundImage: state is GetUserInformationSuccess
+                    //     ? NetworkImage(userInfo.avatar[0])
+                    // : const AssetImage('assets/images/person.png'),
+                    // radius: 364,
+                    // ),
                     // ),
                     heightSpace(50),
                     Text(
@@ -164,6 +163,20 @@ class _FloatingActionButtonScreenState
                             context
                                 .read<ThemeChangerCubit>()
                                 .toggleTheme(newValue);
+                          },
+                        );
+                      },
+                    ),
+                    ElevatedButtonForSignInUp(
+                      signInOrUp: 'Log out'.tr(),
+                      onPressed: () {
+                        Future.delayed(
+                          Duration.zero,
+                          () {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => const LoginScreen()),
+                            );
                           },
                         );
                       },

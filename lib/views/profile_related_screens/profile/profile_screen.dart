@@ -36,82 +36,86 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
-          child: BlocBuilder<GetUserInformationCubit, GetUserInformationState>(
-            builder: (context, state) {
-              if (state is GetUserInformationLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    color: ColorsManager.primaryColor,
-                  ),
-                );
-              } else if (state is GetUserInformationSuccess) {
-                final userInfo = state.userInfo;
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 137,
-                      width: 137,
-                      // child: CircleAvatar(
+      child: BlocProvider(
+        create: (context) => GetUserInformationCubit()..fetchUserInfo(),
+        child: Scaffold(
+          body: Padding(
+            padding: const EdgeInsets.only(left: 10, top: 10, right: 10),
+            child:
+                BlocBuilder<GetUserInformationCubit, GetUserInformationState>(
+              builder: (context, state) {
+                if (state is GetUserInformationLoading) {
+                  return const Center(
+                    child: CircularProgressIndicator(
+                      color: ColorsManager.primaryColor,
+                    ),
+                  );
+                } else if (state is GetUserInformationSuccess) {
+                  final userInfo = state.userInfo;
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 137,
+                        width: 137,
+                        // child: CircleAvatar(
                         // backgroundImage: userInfo.avatar != null &&
                         //         userInfo.avatar!.isNotEmpty
                         //     ? NetworkImage(userInfo.avatar![0])
                         //     : const AssetImage('assets/images/person.jpg')
                         //         as ImageProvider,
-                      //   radius: 364,
-                      // ),
-                    ),
-                    heightSpace(20),
-                    Text(
-                      userInfo.fullname,
-                      style: GoogleFonts.montserrat(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w600,
-                        color: ColorsManager.brown,
+                        //   radius: 364,
+                        // ),
                       ),
-                    ),
-                    heightSpace(10),
-                    Text(
-                      userInfo.email,
-                      style: GoogleFonts.montserrat(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w400,
-                        color: ColorsManager.brown,
+                      heightSpace(20),
+                      Text(
+                        userInfo.fullname,
+                        style: GoogleFonts.montserrat(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                          color: ColorsManager.brown,
+                        ),
                       ),
-                    ),
-                    const Divider(
-                      thickness: 1,
-                      color: ColorsManager.offWhite,
-                    ),
-                    heightSpace(15),
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: svgs.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return GestureDetector(
-                            onTap: () {
-                              if (index == screensName.length ) {
-                              } else if (screensName[index].isNotEmpty) {
-                                Navigator.pushNamed(
-                                    context, screensName[index]);
-                              }
-                            },
-                            child: RowWithIconAndCategoryText(
-                                svg: svgs[index],
-                                categoryName: categoryName[index]),
-                          );
-                        },
+                      heightSpace(10),
+                      Text(
+                        userInfo.email,
+                        style: GoogleFonts.montserrat(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w400,
+                          color: ColorsManager.brown,
+                        ),
                       ),
-                    ),
-                  ],
-                );
-              } else {
-                return Container();
-              }
-            },
+                      const Divider(
+                        thickness: 1,
+                        color: ColorsManager.offWhite,
+                      ),
+                      heightSpace(15),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: svgs.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return GestureDetector(
+                              onTap: () {
+                                if (index == screensName.length) {
+                                } else if (screensName[index].isNotEmpty) {
+                                  Navigator.pushNamed(
+                                      context, screensName[index]);
+                                }
+                              },
+                              child: RowWithIconAndCategoryText(
+                                  svg: svgs[index],
+                                  categoryName: categoryName[index]),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  );
+                } else {
+                  return Container();
+                }
+              },
+            ),
           ),
         ),
       ),

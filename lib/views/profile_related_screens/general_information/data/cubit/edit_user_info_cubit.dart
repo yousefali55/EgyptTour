@@ -13,6 +13,7 @@ part 'edit_user_info_state.dart';
 class EditUserInfoCubit extends Cubit<EditUserInfoState> {
   final dio = Dio();
   File? avatarFile;
+  TextEditingController fullNameController = TextEditingController();
 
   EditUserInfoCubit() : super(EditUserInfoInitial());
   Future<void> pickImage() async {
@@ -30,7 +31,6 @@ class EditUserInfoCubit extends Cubit<EditUserInfoState> {
   }
 
   Future<void> editUserInfo() async {
-    TextEditingController fullNameController = TextEditingController();
     try {
       emit(EditUserInfoLoading());
       final prefs = await SharedPreferences.getInstance();
@@ -46,7 +46,7 @@ class EditUserInfoCubit extends Cubit<EditUserInfoState> {
         if (avatarFile != null && await avatarFile!.exists())
           "avatar": await MultipartFile.fromFile(avatarFile!.path),
       });
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
         emit(EditUserInfoSuccess());
         print(response.data);
       }

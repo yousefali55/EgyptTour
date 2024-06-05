@@ -1,3 +1,5 @@
+import 'package:egypttour/mutual_widgets/explore_button.dart';
+import 'package:egypttour/spacing/spacing.dart';
 import 'package:egypttour/views/search_screen_places/search_screen_places.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +9,7 @@ import 'package:egypttour/views/home_screen/data/cubit/city_informations_cubit.d
 import 'package:egypttour/views/home_screen/data/place_model.dart';
 import 'package:egypttour/views/place_screen/place_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:egypttour/views/favourites_screen/data/favourites_shared.dart';
 import 'package:egypttour/views/favourites_screen/data/favourites_model.dart';
@@ -122,7 +125,7 @@ class _CityScreenState extends State<CityScreen> {
         ),
         Center(
           child: SizedBox(
-            height: 50,
+            height: 50.h,
             child: Image.asset(
               'assets/images/tourist.png',
             ),
@@ -146,58 +149,62 @@ class _CityScreenState extends State<CityScreen> {
             style: const TextStyle(fontSize: 24, color: Color(0xffc39126)),
           ),
         ),
-        Row(
-          children: [
-            const Padding(padding: EdgeInsets.only(left: 9, right: 4)),
-            Padding(
-              padding: const EdgeInsets.only(right: 8),
-              child: CUSTRowICON(
-                image: 'assets/images/Historical Sites.png',
-                text1: 'Historical \n Sites'.tr(),
-                ontap: () {
-                  setState(() {
-                    _selectedCategory = 'Historical Sites';
-                  });
-                },
+        Container(
+          width: MediaQuery.of(context).size.width,
+          child: Row(
+            
+            children: [
+              const Padding(padding: EdgeInsets.only(left: 9, right: 4)),
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: CUSTRowICON(
+                  image: 'assets/images/Historical Sites.png',
+                  text1: 'Historical \n Sites'.tr(),
+                  ontap: () {
+                    setState(() {
+                      _selectedCategory = 'Historical Sites';
+                    });
+                  },
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 8),
-              child: CUSTRowICON(
-                image: 'assets/images/Museums.png',
-                text1: 'Museums'.tr(),
-                ontap: () {
-                  setState(() {
-                    _selectedCategory = 'Museums';
-                  });
-                },
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: CUSTRowICON(
+                  image: 'assets/images/Museums.png',
+                  text1: 'Museums'.tr(),
+                  ontap: () {
+                    setState(() {
+                      _selectedCategory = 'Museums';
+                    });
+                  },
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 8),
-              child: CUSTRowICON(
-                image: 'assets/images/Hotel.png',
-                text1: 'Hotels'.tr(),
-                ontap: () {
-                  setState(() {
-                    _selectedCategory = 'Hotels';
-                  });
-                },
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: CUSTRowICON(
+                  image: 'assets/images/Hotel.png',
+                  text1: 'Hotels'.tr(),
+                  ontap: () {
+                    setState(() {
+                      _selectedCategory = 'Hotels';
+                    });
+                  },
+                ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 8),
-              child: CUSTRowICON(
-                image: 'assets/images/Restaurants.png',
-                text1: 'Restaurants'.tr(),
-                ontap: () {
-                  setState(() {
-                    _selectedCategory = 'Restaurants';
-                  });
-                },
+              Padding(
+                padding: const EdgeInsets.only(right: 8),
+                child: CUSTRowICON(
+                  image: 'assets/images/Restaurants.png',
+                  text1: 'Restaurants'.tr(),
+                  ontap: () {
+                    setState(() {
+                      _selectedCategory = 'Restaurants';
+                    });
+                  },
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -217,15 +224,14 @@ class _CityScreenState extends State<CityScreen> {
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 0.8,
+            childAspectRatio: 0.7,
           ),
           itemCount: items.length,
           itemBuilder: (context, index) {
             final item = items[index];
             final imageUrl = item.img!;
-            final driveId = extractDriveId(imageUrl); // Extract the Drive ID
-            print(
-                'URL: $imageUrl, Drive ID: $driveId'); // Print the URL and extracted Drive ID
+            final driveId = extractDriveId(imageUrl);
+            print('URL: $imageUrl, Drive ID: $driveId');
             return GestureDetector(
               onDoubleTap: () {
                 addToFavorites(item);
@@ -257,12 +263,12 @@ class _CityScreenState extends State<CityScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: 150,
+                            height: 140.h,
                             child: Image.network(
                               'https://docs.google.com/uc?id=${extractDriveId(item.img!)}',
                             ),
                           ),
-                          const SizedBox(height: 4),
+                          heightSpace(4),
                           Text(
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -276,6 +282,10 @@ class _CityScreenState extends State<CityScreen> {
                             children: [
                               Icon(Icons.star, color: Colors.yellow[700]),
                               Text(item.rate ?? 'N/A'),
+                              // ExploreButton(
+                              //   width: 40.w,
+                              //   height: 40.h,
+                              // ),
                               const Spacer(),
                               IconButton(
                                 icon: Icon(

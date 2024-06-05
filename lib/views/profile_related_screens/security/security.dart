@@ -39,9 +39,9 @@ class SecurityScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      SizedBox(
-                        height: 120,
-                        width: 120,
+                      // SizedBox(
+                        // height: 120,
+                        // width: 120,
                         // child: BlocBuilder<GetUserInformationCubit,
                         //     GetUserInformationState>(builder: (context, state) {
                         //   if (state is GetUserInformationFailure) {
@@ -54,8 +54,7 @@ class SecurityScreen extends StatelessWidget {
                         //     // radius: 200,
                         //   // );
                         // }),
-                      ),
-                      widthSpace(20),
+                      // ),
                       SizedBox(
                         width: 220,
                         child: Column(
@@ -202,17 +201,18 @@ class SecurityScreen extends StatelessWidget {
                     },
                   ),
                   heightSpace(15),
-                  TwoButtonsInTwoScreens(
-                    onPressedSaved: () {},
-                    onPressedDiscared: () {},
-                  ),
+                  // TwoButtonsInTwoScreens(
+                  //   onPressedSaved: () {},
+                  //   onPressedDiscared: () {},
+                  // ),
                   heightSpace(10),
                   SizedBox(
-                      height: 100,
-                      width: 200,
-                      child: Image.asset(
-                        'assets/images/tour.png',
-                      )),
+                    height: 100,
+                    width: 200,
+                    child: Image.asset(
+                      'assets/images/tour.png',
+                    ),
+                  ),
                 ],
               ),
             ),

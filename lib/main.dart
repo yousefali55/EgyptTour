@@ -6,7 +6,7 @@ import 'package:egypttour/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+//git done changed test
 void main() {
   runApp(
     EasyLocalization(
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(375,  812),
+      designSize: const Size(412, 732),
       minTextAdapt: true,
       child: BlocBuilder<ThemeChangerCubit, ThemeChangerState>(
         builder: (context, themeState) {

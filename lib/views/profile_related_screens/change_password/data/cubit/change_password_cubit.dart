@@ -7,35 +7,59 @@ import 'package:shared_preferences/shared_preferences.dart';
 part 'change_password_state.dart';
 
 class ChangePasswordCubit extends Cubit<ChangePasswordState> {
-  final dio = Dio();
+  final Dio dio = Dio();
   TextEditingController emailController = TextEditingController();
   TextEditingController codeController = TextEditingController();
   TextEditingController passwrodController = TextEditingController();
+  TextEditingController passwrodConfirmController = TextEditingController();
+
   ChangePasswordCubit() : super(ChangePasswordInitial());
+
   Future<void> changePassword() async {
     try {
       emit(ChangePasswordLoading());
-      const url = 'https://finish-api.onrender.com/api/user/resetPassword';
+
+      // Retrieve the bearer token from shared preferences or some other secure storage
       final prefs = await SharedPreferences.getInstance();
-      final token = prefs.getString('token');
-      final response = await dio.post(
-          options: Options(
-            headers: {
-              'Authorization': 'Bearer $token',
-            },
-          ),
-          url,
-          data: {
-            "email": emailController.text,
-            "code": codeController.text,
-            "passwrod": passwrodController.text,
-          });
+      final token = prefs.getString('token') ?? '';
+
+      // Set up the headers
+      final options = Options(
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': '*/*',
+          'Authorization': 'Bearer $token',
+          'User-Agent': 'PostmanRuntime/7.39.0',
+          'Accept-Encoding': 'gzip, deflate, br',
+          'Connection': 'keep-alive',
+        },
+      );
+
+      const url = 'https://finish-api.onrender.com/api/user/resetPassword';
+
+      final response = await dio.patch(
+        url,
+        data: {
+          "email": emailController.text,
+          "code": codeController.text,
+          "password": passwrodController.text,
+          "passwordConfirm": passwrodConfirmController.text
+        },
+        options: options,
+      );
+
       if (response.statusCode == 201) {
         emit(ChangePasswordSuccess());
         print(response.data);
       } else {
-        emit(ChangePasswordFailure(errorMessage: '${response.statusCode}'));
+        emit(ChangePasswordFailure(
+            errorMessage:
+                'Error: ${response.statusCode} ${response.statusMessage}\n${response.data}'));
       }
+    } on DioException catch (e) {
+      emit(ChangePasswordFailure(
+          errorMessage:
+              'DioException [${e.type}]: ${e.message}\n${e.response?.data}'));
     } catch (e) {
       emit(ChangePasswordFailure(errorMessage: e.toString()));
     }

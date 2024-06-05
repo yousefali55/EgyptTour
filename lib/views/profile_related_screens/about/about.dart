@@ -3,6 +3,7 @@ import 'package:egypttour/spacing/spacing.dart';
 import 'package:egypttour/theming/colors_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 class AboutScreen extends StatelessWidget {
   final List<String> images = [
     'assets/images/Rectangle173.png',
@@ -71,16 +72,19 @@ class AboutScreen extends StatelessWidget {
                 Text(
                   'incredible_experience_description'.tr(),
                   style: GoogleFonts.cairo(
-                    fontWeight: FontWeight.w300,
-                    fontSize: 24,
+                    height: 1.5,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
                   ),
+                  textAlign: TextAlign.left,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: GridView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                     ),
                     itemCount: 6,
@@ -106,10 +110,11 @@ class AboutScreen extends StatelessWidget {
                 Text(
                   'no_fees_description'.tr(),
                   style: GoogleFonts.cairo(
-                    height: 2,
-                    fontWeight: FontWeight.w300,
-                    fontSize: 24,
+                    height: 1.5,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
                   ),
+                  textAlign: TextAlign.left,
                 ),
                 Text(
                   'support_title'.tr(),
@@ -121,10 +126,11 @@ class AboutScreen extends StatelessWidget {
                 Text(
                   'support_description'.tr(),
                   style: GoogleFonts.cairo(
-                    height: 2,
-                    fontWeight: FontWeight.w300,
-                    fontSize: 24,
+                    height: 1.5,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
                   ),
+                  textAlign: TextAlign.left,
                 ),
                 Text(
                   'evolution_title'.tr(),
@@ -137,10 +143,11 @@ class AboutScreen extends StatelessWidget {
                 Text(
                   'evolution_description'.tr(),
                   style: GoogleFonts.cairo(
-                    height: 2,
-                    fontWeight: FontWeight.w300,
-                    fontSize: 24,
+                    height: 1.5,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
                   ),
+                  textAlign: TextAlign.left,
                 ),
                 heightSpace(5),
               ],

@@ -1,5 +1,4 @@
 import 'package:easy_localization/easy_localization.dart';
-import 'package:egypttour/mutual_widgets/custom_snack_bar.dart';
 import 'package:egypttour/mutual_widgets/elevated_button_for_sign_in_up.dart';
 import 'package:egypttour/mutual_widgets/repeated_text_field.dart';
 import 'package:egypttour/mutual_widgets/two_buttons_in_two_screens.dart';
@@ -36,12 +35,19 @@ class GeneralInFormation extends StatelessWidget {
                 create: (context) => EditUserInfoCubit(),
                 child: Scaffold(
                   body: BlocBuilder<EditUserInfoCubit, EditUserInfoState>(
-                    builder: (context, state) {
-                      if (state is EditUserInfoSuccess) {
-                        showCustomSnackbar(context, 'Success'.tr(),
-                            ColorsManager.primaryColor);
-                        Navigator.pop(context);
+                    builder: (context, editState) {
+                      if (editState is EditUserInfoSuccess) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          Navigator.pop(context);
+                        });
+                      } else if (editState is EditUserInfoLoading) {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            color: ColorsManager.primaryColor,
+                          ),
+                        );
                       }
+
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -50,22 +56,8 @@ class GeneralInFormation extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Row(
                               children: [
-                                // SizedBox(
-                                //   height: 137,
-                                //   width: 137,
-                                //   child: CircleAvatar(
-                                //     backgroundImage: userInfo.avatar != null &&
-                                //             userInfo.!.isNotEmpty
-                                //         ? NetworkImage(userInfo.avatar![0])
-                                //         : const AssetImage(
-                                //                 'assets/images/person.jpg')
-                                //             as ImageProvider,
-                                //     radius: 364,
-                                //   ),
-                                // ),
-                                // const SizedBox(width: 20),
                                 Text(
-                                  'Personal details and Adresses'.tr(),
+                                  'Personal details and Addresses'.tr(),
                                   style: GoogleFonts.montserrat(
                                     color: ColorsManager.primaryColor,
                                     fontSize: 23,
@@ -86,8 +78,11 @@ class GeneralInFormation extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 RepeatedTextFormField(
-                                  controller: TextEditingController(),
+                                  controller: context
+                                      .read<EditUserInfoCubit>()
+                                      .fullNameController,
                                   hintText: "Full name".tr(),
+                                  keyboardType: TextInputType.name,
                                   hide: false,
                                 ),
                                 heightSpace(20),
@@ -99,19 +94,22 @@ class GeneralInFormation extends StatelessWidget {
                                 heightSpace(20),
                                 DropdownButtonFormField<String>(
                                   borderRadius: BorderRadius.circular(20),
-                                  dropdownColor: ColorsManager.primaryColor,
+                                  focusColor: ColorsManager.primaryColor,
                                   value: null,
                                   onChanged: (value) {},
-                                  items: <String>['Male'.tr(), 'Female'.tr(),]
+                                  items: <String>['Male'.tr(), 'Female'.tr()]
                                       .map<DropdownMenuItem<String>>(
                                         (String value) =>
                                             DropdownMenuItem<String>(
                                           value: value,
-                                          child: Text(value),
+                                          child: Text(value,
+                                          style: GoogleFonts.sora(
+                                            color: ColorsManager.primaryColor,
+                                          ),),
                                         ),
                                       )
                                       .toList(),
-                                  decoration:  InputDecoration(
+                                  decoration: InputDecoration(
                                     labelText: 'Gender'.tr(),
                                     border: const OutlineInputBorder(),
                                   ),
@@ -154,12 +152,15 @@ class GeneralInFormation extends StatelessWidget {
                               ],
                             ),
                           ),
-                          TwoButtonsInTwoScreens(
-                            onPressedSaved:
-                                context.read<EditUserInfoCubit>().editUserInfo,
-                            onPressedDiscared: () {
-                              Navigator.pop(context);
-                            },
+                          heightSpace(30),
+                          Center(
+                            child: TwoButtonsInTwoScreens(
+                              onPressedSaved:
+                                  context.read<EditUserInfoCubit>().editUserInfo,
+                              onPressedDiscared: () {
+                                Navigator.pop(context);
+                              },
+                            ),
                           ),
                         ],
                       );
