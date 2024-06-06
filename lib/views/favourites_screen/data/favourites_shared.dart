@@ -21,6 +21,7 @@ class FavoriteStorage {
         name: map['name'],
         description: map['description'],
         imageUrl: map['imageUrl'],
+        rate: map['rate'],
       );
     }).toList();
   }
@@ -33,6 +34,7 @@ class FavoriteStorage {
         'name': favorite.name,
         'description': favorite.description,
         'imageUrl': favorite.imageUrl,
+        'rate': favorite.rate
       });
     }).toList();
     await prefs.setStringList(_key, jsonList);

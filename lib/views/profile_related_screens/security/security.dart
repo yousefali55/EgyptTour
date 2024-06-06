@@ -47,12 +47,12 @@ class SecurityScreen extends StatelessWidget {
                         //   if (state is GetUserInformationFailure) {
                         //     print('Failed'.tr());
                         //   }
-                        //   // return CircleAvatar(
-                        //     // backgroundImage: state is GetUserInformationSuccess
-                        //     //     ? NetworkImage(state.userInfo.avatar[0])
-                        //     //     : const AssetImage('assets/images/person.jpg'),
-                        //     // radius: 200,
-                        //   // );
+                          // return CircleAvatar(
+                            // backgroundImage: state is GetUserInformationSuccess
+                            //     ? NetworkImage(state.userInfo.avatar[0])
+                            //     : const AssetImage('assets/images/person.jpg'),
+                            // radius: 200,
+                          // );
                         // }),
                       // ),
                       SizedBox(
@@ -97,8 +97,6 @@ class SecurityScreen extends StatelessWidget {
                                 ForgetPasswordState>(
                               builder: (context, state) {
                                 if (state is ForgetPasswordSuccess) {
-                                  showCustomSnackbar(context, 'Success'.tr(),
-                                      ColorsManager.primaryColor);
                                   Navigator.pushAndRemoveUntil(
                                     context,
                                     MaterialPageRoute(

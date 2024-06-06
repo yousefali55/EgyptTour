@@ -11,7 +11,7 @@ class PlaceScreen extends StatelessWidget {
   final String placeDescription;
   final String img;
   final String rating;
-  final List<TimeSlot>? time; // Add null safety for time
+  final List<TimeSlot>? time; 
   final String placeLocation;
 
   const PlaceScreen({
@@ -83,7 +83,7 @@ class PlaceScreen extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children:
-                            buildTimes(), // Call buildTimes only if time is not null
+                            buildTimes(),
                       ),
                       SizedBox(height: 20.h),
                     ],

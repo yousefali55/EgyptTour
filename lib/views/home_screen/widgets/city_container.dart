@@ -30,8 +30,8 @@ class CityContainer extends StatelessWidget {
     final isArabic = context.locale.languageCode == 'ar';
     final endpoint = isArabic ? endpointAr : endpointEn;
     return BlocProvider(
-      create: (context) => CityInformationsCubit(endpoint, weatherEndPoint)
-        ..getWeather(), // Fetch weather data when CityContainer is created
+      create: (context) =>
+          CityInformationsCubit(endpoint, weatherEndPoint)..getWeather(),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: GestureDetector(
@@ -89,7 +89,7 @@ class CityContainer extends StatelessWidget {
                           children: [
                             Text(
                               '${weather.current.tempC.toString()}°C',
-                              style:  TextStyle(
+                              style: TextStyle(
                                 color: ColorsManager.white,
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.bold,
@@ -97,7 +97,7 @@ class CityContainer extends StatelessWidget {
                             ),
                             Text(
                               '${weather.current.tempF.toString()}°F',
-                              style:  TextStyle(
+                              style: TextStyle(
                                 color: ColorsManager.white,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20.sp,
@@ -110,10 +110,7 @@ class CityContainer extends StatelessWidget {
                     return Container(); // Default state
                   },
                 ),
-                 ExploreButton(
-                  height: 50.h,
-                  width: 150.w,
-                )
+                const ExploreButton()
               ],
             ),
           ),
@@ -122,5 +119,3 @@ class CityContainer extends StatelessWidget {
     );
   }
 }
-
-

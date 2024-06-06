@@ -1,4 +1,3 @@
-import 'package:egypttour/mutual_widgets/explore_button.dart';
 import 'package:egypttour/spacing/spacing.dart';
 import 'package:egypttour/views/search_screen_places/search_screen_places.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +43,7 @@ class _CityScreenState extends State<CityScreen> {
 
   void addToFavorites(Place place) async {
     final favorite = FavoritePlace(
+      rate: place.rate!,
       id: place.id!,
       name: place.name!,
       description: place.description!,
@@ -53,7 +53,6 @@ class _CityScreenState extends State<CityScreen> {
       favoritePlaces.add(favorite);
       await FavoriteStorage.saveFavorites(favoritePlaces);
       setState(() {});
-      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('${place.name} added to favorites!'),
@@ -63,7 +62,6 @@ class _CityScreenState extends State<CityScreen> {
       favoritePlaces.removeWhere((fav) => fav.id == place.id);
       await FavoriteStorage.saveFavorites(favoritePlaces);
       setState(() {});
-      // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('${place.name} removed from favorites!'),
@@ -94,7 +92,7 @@ class _CityScreenState extends State<CityScreen> {
           } else if (state is CityInformationsFailure) {
             return Center(child: Text(state.errorMessge));
           }
-          return Container(); // Default state
+          return Container(); 
         },
       ),
     );
@@ -282,10 +280,7 @@ class _CityScreenState extends State<CityScreen> {
                             children: [
                               Icon(Icons.star, color: Colors.yellow[700]),
                               Text(item.rate ?? 'N/A'),
-                              // ExploreButton(
-                              //   width: 40.w,
-                              //   height: 40.h,
-                              // ),
+
                               const Spacer(),
                               IconButton(
                                 icon: Icon(

@@ -5,17 +5,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ExploreButton extends StatelessWidget {
-  final double height;
-  final double width;
   const ExploreButton({
-    super.key, required this.height, required this.width,
+    super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        // height: 50.h,
-        // width: 150.w,
+        height: 50.h,
+        width: 150.w,
         decoration: const BoxDecoration(
             color: ColorsManager.darkerWhite,
             borderRadius: BorderRadius.all(Radius.circular(40))),
