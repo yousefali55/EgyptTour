@@ -7,7 +7,7 @@ class TimeSlot {
   factory TimeSlot.fromJson(Map<String, dynamic> json) {
     final day = json.keys.first;
     final timeSlot = json.values.first ??
-        "No time slot"; // Provide a default value if the time slot is null
+        "No time slot"; 
     return TimeSlot(
       day: day,
       timeSlot: timeSlot.toString(),

@@ -47,7 +47,6 @@ class AboutScreen extends StatelessWidget {
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                         ),
-                        textAlign: TextAlign.left,
                       ),
                     ],
                   ),
@@ -76,7 +75,6 @@ class AboutScreen extends StatelessWidget {
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
                   ),
-                  textAlign: TextAlign.left,
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
@@ -114,7 +112,6 @@ class AboutScreen extends StatelessWidget {
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
                   ),
-                  textAlign: TextAlign.left,
                 ),
                 Text(
                   'support_title'.tr(),
@@ -130,7 +127,6 @@ class AboutScreen extends StatelessWidget {
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
                   ),
-                  textAlign: TextAlign.left,
                 ),
                 Text(
                   'evolution_title'.tr(),
@@ -147,7 +143,6 @@ class AboutScreen extends StatelessWidget {
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
                   ),
-                  textAlign: TextAlign.left,
                 ),
                 heightSpace(5),
               ],

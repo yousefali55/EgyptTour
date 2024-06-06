@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:egypttour/views/favourites_screen/data/favourites_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,26 +15,14 @@ class FavoriteStorage {
 
     return jsonList.map((jsonString) {
       Map<String, dynamic> map = json.decode(jsonString);
-      return FavoritePlace(
-        id: map['id'],
-        name: map['name'],
-        description: map['description'],
-        imageUrl: map['imageUrl'],
-        rate: map['rate'],
-      );
+      return FavoritePlace.fromJson(map);
     }).toList();
   }
 
   static Future<void> saveFavorites(List<FavoritePlace> favorites) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> jsonList = favorites.map((favorite) {
-      return json.encode({
-        'id': favorite.id,
-        'name': favorite.name,
-        'description': favorite.description,
-        'imageUrl': favorite.imageUrl,
-        'rate': favorite.rate
-      });
+      return json.encode(favorite.toJson());
     }).toList();
     await prefs.setStringList(_key, jsonList);
   }

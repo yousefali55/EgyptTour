@@ -199,7 +199,7 @@ class _FloatingActionButtonScreenState
                   ? Colors.black
                   : const Color.fromARGB(255, 255, 249, 235),
               actions: [
-                Image.asset('assets/images/tourist.png'),
+                Image.asset('assets/images/tourist.png',height: 45),
                 IconButton(
                   onPressed: () {
                     Navigator.push(

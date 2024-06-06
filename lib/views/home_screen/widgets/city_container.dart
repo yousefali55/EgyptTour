@@ -58,11 +58,15 @@ class CityContainer extends StatelessWidget {
             child: Column(
               children: [
                 heightSpace(12),
-                SizedBox(
-                  height: 130.h,
-                  child: Image.asset(
-                    imageAsset,
-                    fit: BoxFit.contain,
+                Padding(
+                  
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: SizedBox(
+                    height: 130.h,
+                    child: Image.asset(
+                      imageAsset,
+                      fit: BoxFit.contain,
+                    ),
                   ),
                 ),
                 Text(

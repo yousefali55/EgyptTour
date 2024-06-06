@@ -1,13 +1,11 @@
 import 'package:egypttour/spacing/spacing.dart';
 import 'package:egypttour/theming/colors_manager.dart';
-import 'package:egypttour/views/place_screen/place_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:egypttour/views/favourites_screen/data/favourites_model.dart';
 import 'package:egypttour/views/favourites_screen/data/favourites_shared.dart';
-import 'package:egypttour/views/home_screen/data/place_model.dart';
+import 'package:egypttour/views/place_screen/place_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 class FavouritesScreen extends StatefulWidget {
   const FavouritesScreen({super.key});
 
@@ -16,7 +14,7 @@ class FavouritesScreen extends StatefulWidget {
 }
 
 class _FavouritesScreenState extends State<FavouritesScreen> {
-  List<Place> favoritePlaces = [];
+  List<FavoritePlace> favoritePlaces = [];
 
   @override
   void initState() {
@@ -26,17 +24,8 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
 
   void loadFavorites() async {
     List<FavoritePlace> favorites = await FavoriteStorage.getFavorites();
-    print('Loaded favorites: ${favorites.length}');
     setState(() {
-      favoritePlaces = favorites
-          .map((fav) => Place(
-                time: [],
-                id: fav.id,
-                name: fav.name,
-                description: fav.description,
-                img: fav.imageUrl,
-              ))
-          .toList();
+      favoritePlaces = favorites;
     });
   }
 
@@ -50,7 +39,6 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
     return Scaffold(
       body: favoritePlaces.isNotEmpty
           ? GridView.builder(
-              shrinkWrap: true,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 childAspectRatio: 0.7,
@@ -61,15 +49,18 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (_) => PlaceScreen(
-                                placeNameText: place.name!,
-                                placeDescription: place.description!,
-                                img: place.img!,
-                                rating: '5',
-                                time: [],
-                                placeLocation: 'place.location!')));
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => PlaceScreen(
+                          placeNameText: place.name,
+                          placeDescription: place.description,
+                          img: place.imageUrl,
+                          rating: place.rate,
+                          time: place.time,
+                          placeLocation: place.location, // Pass the location
+                        ),
+                      ),
+                    );
                   },
                   child: Card(
                     color: ColorsManager.brown,
@@ -85,14 +76,15 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                               SizedBox(
                                 height: 140.h,
                                 child: Image.network(
-                                  'https://docs.google.com/uc?id=${extractDriveId(place.img!)}',
+                                  'https://docs.google.com/uc?id=${extractDriveId(place.imageUrl)}',
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                               heightSpace(4),
                               Text(
+                                place.name,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                place.name!,
                                 style: GoogleFonts.sora(
                                   color: ColorsManager.white,
                                   fontWeight: FontWeight.w500,
@@ -101,16 +93,17 @@ class _FavouritesScreenState extends State<FavouritesScreen> {
                               Row(
                                 children: [
                                   Icon(Icons.star, color: Colors.yellow[700]),
-                                  Text(place.rate ?? 'N/A'),
+                                  Text(place.rate),
                                   const Spacer(),
                                   IconButton(
                                     icon: const Icon(Icons.delete),
                                     onPressed: () {
-                                      removeFavorite(place.id!);
+                                      removeFavorite(place.id);
                                     },
                                   ),
                                 ],
                               ),
+                        
                             ],
                           ),
                         ),

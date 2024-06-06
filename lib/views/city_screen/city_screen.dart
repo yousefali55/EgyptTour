@@ -1,17 +1,17 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:egypttour/mutual_widgets/CustRowIcon.dart';
 import 'package:egypttour/spacing/spacing.dart';
+import 'package:egypttour/theming/colors_manager.dart';
+import 'package:egypttour/views/home_screen/data/cubit/city_informations_cubit.dart';
+import 'package:egypttour/views/place_screen/place_screen.dart';
 import 'package:egypttour/views/search_screen_places/search_screen_places.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:egypttour/mutual_widgets/CustRowIcon.dart';
-import 'package:egypttour/theming/colors_manager.dart';
-import 'package:egypttour/views/home_screen/data/cubit/city_informations_cubit.dart';
-import 'package:egypttour/views/home_screen/data/place_model.dart';
-import 'package:egypttour/views/place_screen/place_screen.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:egypttour/views/home_screen/data/place_model.dart';
 import 'package:egypttour/views/favourites_screen/data/favourites_shared.dart';
 import 'package:egypttour/views/favourites_screen/data/favourites_model.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CityScreen extends StatefulWidget {
   const CityScreen({super.key});
@@ -43,6 +43,8 @@ class _CityScreenState extends State<CityScreen> {
 
   void addToFavorites(Place place) async {
     final favorite = FavoritePlace(
+      time: place.time,
+      location: place.location!,
       rate: place.rate!,
       id: place.id!,
       name: place.name!,
@@ -92,7 +94,7 @@ class _CityScreenState extends State<CityScreen> {
           } else if (state is CityInformationsFailure) {
             return Center(child: Text(state.errorMessge));
           }
-          return Container(); 
+          return Container();
         },
       ),
     );
@@ -141,32 +143,33 @@ class _CityScreenState extends State<CityScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(top: 20, left: 16, bottom: 15),
+          padding: EdgeInsets.only(top: 20.h, left: 16.w, bottom: 15.h),
           child: Text(
             'Categories'.tr(),
-            style: const TextStyle(fontSize: 24, color: Color(0xffc39126)),
+            style: TextStyle(fontSize: 24.sp, color: Color(0xffc39126)),
           ),
         ),
         Container(
           width: MediaQuery.of(context).size.width,
           child: Row(
-            
             children: [
-              const Padding(padding: EdgeInsets.only(left: 9, right: 4)),
               Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: CUSTRowICON(
-                  image: 'assets/images/Historical Sites.png',
-                  text1: 'Historical \n Sites'.tr(),
-                  ontap: () {
-                    setState(() {
-                      _selectedCategory = 'Historical Sites';
-                    });
-                  },
+                padding: EdgeInsets.only(left: 9.w, right: 4.w),
+                child: Padding(
+                  padding: EdgeInsets.only(right: 8.w),
+                  child: CUSTRowICON(
+                    image: 'assets/images/Historical Sites.png',
+                    text1: 'Historical \n Sites'.tr(),
+                    ontap: () {
+                      setState(() {
+                        _selectedCategory = 'Historical Sites';
+                      });
+                    },
+                  ),
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 8),
+                padding: EdgeInsets.only(right: 8.w),
                 child: CUSTRowICON(
                   image: 'assets/images/Museums.png',
                   text1: 'Museums'.tr(),
@@ -178,7 +181,7 @@ class _CityScreenState extends State<CityScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 8),
+                padding: EdgeInsets.only(right: 8.w),
                 child: CUSTRowICON(
                   image: 'assets/images/Hotel.png',
                   text1: 'Hotels'.tr(),
@@ -190,7 +193,7 @@ class _CityScreenState extends State<CityScreen> {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 8),
+                padding: EdgeInsets.only(right: 8.w),
                 child: CUSTRowICON(
                   image: 'assets/images/Restaurants.png',
                   text1: 'Restaurants'.tr(),
@@ -205,12 +208,12 @@ class _CityScreenState extends State<CityScreen> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: EdgeInsets.all(8.w),
           child: Center(
             child: Text(
               categoryName,
               style: GoogleFonts.sora(
-                fontSize: 30,
+                fontSize: 30.sp,
                 fontWeight: FontWeight.bold,
                 color: ColorsManager.primaryColor,
               ),
@@ -220,7 +223,7 @@ class _CityScreenState extends State<CityScreen> {
         GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             childAspectRatio: 0.7,
           ),
@@ -251,12 +254,12 @@ class _CityScreenState extends State<CityScreen> {
               },
               child: Card(
                 color: ColorsManager.brown,
-                margin: const EdgeInsets.all(8.0),
+                margin: EdgeInsets.all(8.w),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
+                      padding: EdgeInsets.all(8.w),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -266,7 +269,7 @@ class _CityScreenState extends State<CityScreen> {
                               'https://docs.google.com/uc?id=${extractDriveId(item.img!)}',
                             ),
                           ),
-                          heightSpace(4),
+                          heightSpace(4.h),
                           Text(
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
@@ -280,8 +283,7 @@ class _CityScreenState extends State<CityScreen> {
                             children: [
                               Icon(Icons.star, color: Colors.yellow[700]),
                               Text(item.rate ?? 'N/A'),
-
-                              const Spacer(),
+                              Spacer(),
                               IconButton(
                                 icon: Icon(
                                   isFavorite(item)

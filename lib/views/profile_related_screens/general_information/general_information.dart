@@ -72,6 +72,7 @@ class GeneralInFormation extends StatelessWidget {
                             color: ColorsManager.primaryColor,
                             height: 1,
                           ),
+                          heightSpace(30),
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Column(

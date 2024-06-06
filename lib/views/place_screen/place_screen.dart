@@ -11,7 +11,7 @@ class PlaceScreen extends StatelessWidget {
   final String placeDescription;
   final String img;
   final String rating;
-  final List<TimeSlot>? time; 
+  final List<TimeSlot>? time;
   final String placeLocation;
 
   const PlaceScreen({
@@ -42,7 +42,7 @@ class PlaceScreen extends StatelessWidget {
               ),
               SizedBox(height: 50.h),
               Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: EdgeInsets.all(10.w),
                 child: Column(
                   children: [
                     Row(
@@ -52,18 +52,18 @@ class PlaceScreen extends StatelessWidget {
                               ? '${placeNameText.substring(0, 15)}...'
                               : placeNameText,
                           overflow: TextOverflow.ellipsis,
-                          style:  TextStyle(
+                          style: TextStyle(
                             color: ColorsManager.brown,
                             fontSize: 20.sp,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
-                        const Spacer(),
+                        Spacer(),
                         Text(
                           'Rating: $rating',
-                          style: const TextStyle(
+                          style: TextStyle(
                             color: ColorsManager.brown,
-                            fontSize: 20,
+                            fontSize: 20.sp,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -82,16 +82,15 @@ class PlaceScreen extends StatelessWidget {
                     if (time != null) ...[
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children:
-                            buildTimes(),
+                        children: buildTimes(),
                       ),
                       SizedBox(height: 20.h),
                     ],
                     ElevatedButton.icon(
-                      icon: const Icon(
+                      icon: Icon(
                         Icons.location_pin,
-                        color: Color.fromARGB(255, 255, 255, 255),
-                        size: 25.0,
+                        color: Colors.white,
+                        size: 25.sp,
                       ),
                       onPressed: () {
                         launchMaps(placeLocation);
@@ -99,7 +98,7 @@ class PlaceScreen extends StatelessWidget {
                       label: Text(
                         'Location.',
                         style: TextStyle(
-                          color: const Color.fromARGB(255, 117, 76, 14),
+                          color: ColorsManager.brown,
                           fontSize: 20.sp,
                         ),
                       ),
@@ -107,7 +106,7 @@ class PlaceScreen extends StatelessWidget {
                         backgroundColor:
                             const Color.fromARGB(255, 246, 214, 144),
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
+                          borderRadius: BorderRadius.circular(20.w),
                         ),
                       ),
                     ),
@@ -146,7 +145,7 @@ class PlaceScreen extends StatelessWidget {
   List<Widget> buildTimes() {
     return time!.map((timeSlot) {
       return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 4.0),
+        padding: EdgeInsets.symmetric(vertical: 4.h),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -158,7 +157,7 @@ class PlaceScreen extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            const SizedBox(width: 8), // Add space between day and time slot
+            SizedBox(width: 8.w),
             Text(
               timeSlot.timeSlot,
               style: TextStyle(

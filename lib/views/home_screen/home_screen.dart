@@ -22,42 +22,42 @@ class HomeScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: EdgeInsets.all(10.w),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 Text(
                   'Explore Egypt'.tr(),
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: ColorsManager.primaryColor,
-                      fontSize: 40,
+                      fontSize: 40.sp,
                       fontWeight: FontWeight.bold),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20, left: 16, bottom: 15),
+                  padding: EdgeInsets.only(top: 20.h, left: 16.w, bottom: 15.h),
                   child: Text(
                     "what's new".tr(),
-                    style: const TextStyle(
-                        fontSize: 24, color: ColorsManager.primaryColor),
+                    style: TextStyle(
+                        fontSize: 24.sp, color: ColorsManager.primaryColor),
                   ),
                 ),
                 SlideShow(imageAssets: imageAssets),
                 Text(
                   'newss'.tr(),
-                  style: const TextStyle(
-                      fontSize: 19, color: ColorsManager.primaryColor),
+                  style: TextStyle(
+                      fontSize: 19.sp, color: ColorsManager.primaryColor),
                 ),
-                const Divider(
+                Divider(
                   color: ColorsManager.primaryColor,
-                  endIndent: 50,
-                  thickness: 1,
-                  indent: 50,
+                  endIndent: 50.w,
+                  thickness: 1.w,
+                  indent: 50.w,
                 ),
                 Text(
                   "Browse your journey".tr(),
-                  style: const TextStyle(
+                  style: TextStyle(
                       color: Color(0xffc39126),
-                      fontSize: 30,
+                      fontSize: 30.sp,
                       fontWeight: FontWeight.bold),
                 ),
                 SizedBox(
@@ -65,9 +65,8 @@ class HomeScreen extends StatelessWidget {
                   child: GridView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2, childAspectRatio: 0.7),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2, childAspectRatio: 0.7),
                     itemCount: imageAssets.length,
                     itemBuilder: (BuildContext context, int index) {
                       return CityContainer(
@@ -80,7 +79,7 @@ class HomeScreen extends StatelessWidget {
                     },
                   ),
                 ),
-                heightSpace(20),
+                heightSpace(20.h),
               ],
             ),
           ),
@@ -144,10 +143,10 @@ class _SlideShowState extends State<SlideShow> {
         controller: _controller,
         children: widget.imageAssets.map((imageAsset) {
           return SizedBox(
-            width: MediaQuery.of(context).size.width, // Match parent width
+            width: MediaQuery.of(context).size.width, 
             child: Image.asset(
               imageAsset,
-              fit: BoxFit.cover, // Ensure the image covers the container
+              fit: BoxFit.cover, 
             ),
           );
         }).toList(),
